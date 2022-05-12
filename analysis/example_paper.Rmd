@@ -97,7 +97,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 
 # Introduction
 
-We used some information from 
+Based on a lot of evidence, we already know that job satisfaction and conscientiousness have strong effects on extra-role behavior [@bowlingEffectsJobSatisfaction2010].
 
 # Methods
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
@@ -109,12 +109,14 @@ We report how we determined our sample size, all data exclusions (if any), all m
 ## Procedure
 
 ## Data analysis
-We used `r cite_r("r-references.bib")` for all our analyses. @RoleAffectiveDispositions
+
 
 
 # Results
 
 # Discussion
+
+Here, we discuss some implications based on the relationship between personality and job satisafaction [@mathieu13]. 
 
 
 \newpage
