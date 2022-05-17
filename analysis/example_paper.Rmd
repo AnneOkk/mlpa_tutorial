@@ -85,14 +85,25 @@ documentclass     : "apa7"
 ---
 
 ```{r setup, include = FALSE}
-library("papaja")
-r_refs("../config/refs.bib")
+# packages
+library(papaja)
+library(tidyverse)
+library(readxl)
+# chunk options
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+
+# custom functions
+source("../R/custom-functions.R")
+
+# get data
+df <- read_data_excel(rel_directory = "data/raw/", pattern = "\\.xlsx$")
+
 ```
 
 ```{r analysis-preferences}
 # Seed for random number generation
 set.seed(42)
-knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+
 ```
 
 # Introduction
