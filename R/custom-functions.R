@@ -8,3 +8,4 @@ read_data_excel <- function(rel_directory, pattern) {
     names(df_list) <- paste0("", gsub(pattern,"",names(df_list)))
     return(df_list)
 }
+
