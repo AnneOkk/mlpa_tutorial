@@ -31,7 +31,4 @@ output/
 .Rproj.user
 
 # Data folder
-data/.gitkeep
-data/raw/
-
-.*gitkeep.*
+data/
