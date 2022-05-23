@@ -30,8 +30,6 @@ output/
 # RStudio
 .Rproj.user
 
-# gitkeep
-*gitkeep
-
-# Data
-/data/
+# Data folder
+data/.gitkeep
+data/raw
