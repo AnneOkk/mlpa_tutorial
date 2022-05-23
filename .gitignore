@@ -29,6 +29,3 @@ output/
 
 # RStudio
 .Rproj.user
-
-# Data folder
-data/
