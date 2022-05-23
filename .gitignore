@@ -32,4 +32,6 @@ output/
 
 # Data folder
 data/.gitkeep
-data/raw
+data/raw/
+
+.*gitkeep.*
