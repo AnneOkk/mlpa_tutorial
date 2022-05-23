@@ -31,7 +31,7 @@ output/
 .Rproj.user
 
 # gitkeep
-.gitkeep
+*gitkeep
 
 # Data
-data/
+/data/
