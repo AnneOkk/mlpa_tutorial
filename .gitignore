@@ -30,5 +30,5 @@ output/
 # RStudio
 .Rproj.user
 
-# Exclude data 
+# Exclude data
 data/
