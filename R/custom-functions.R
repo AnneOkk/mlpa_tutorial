@@ -29,3 +29,8 @@ mysummary <- function(x,npar=TRUE,print=TRUE) {
     result <- list(center=center,spread=spread)
     return(result)
 }
+
+# subby function
+subby <- function(a, b) {
+  a - b
+}
