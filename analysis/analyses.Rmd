@@ -1,0 +1,158 @@
+---
+title: "LPA Leadership tactics"
+output: html_document      
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+source("../R/custom-functions.R")
+```
+
+## Reading in data
+
+```{r cars}
+data <- read_data_sav(rel_directory = "/data/", pattern = "data_full.sav")
+data <- data[[2]]
+```
+
+## Rename data
+
+```{r}
+names(data) <- gsub("^(.*[\\d]*)(\\d)$", "\\1_\\2", names(data))
+```
+
+## Select certain columns
+
+```{r}
+data_comp <- data %>% select(matches("\\d$")) %>% select(-matches("CHECK|MSELFE1_0"))
+data_no_comp <- data %>% select(-matches("\\d$"))
+```  
+
+## Make composite data frame
+
+```{r}
+comp_split <- data_comp %>% remove_all_labels(.) %>%
+  split.default(sub("_.", "", names(data_comp)))
+
+comp <- purrr::map(comp_split, ~ multicon::composite(.x, nomiss = 0.8), data = .x)
+alph <- purrr::map(comp_split, ~ psych::alpha(.x), data = .x) %>%
+  purrr::map(~ .x$total)
+
+comp_df <- do.call("cbind", comp) %>% cbind(., data_no_comp) %>% remove_all_labels(.)
+alph_df <- do.call("rbind", alph) %>% round(., 2)
+```
+
+## Reliabilities
+
+```{r reliabilities, include = T}
+# prolific 
+alph_df %>%
+DT::datatable(
+    extensions = 'Buttons', 
+    options = list(dom = 'Bfrtip', 
+                   buttons = c('excel', "csv"),
+                   pageLength = 20))
+```
+
+## Correlations
+
+```{r}
+# select only numeric 
+comp_df_mum <- comp_df[ , purrr::map_lgl(comp_df, is.numeric)]
+cor_tab <- corstars(comp_df_mum)
+cor_tab %>%
+  DT::datatable(
+    extensions = 'Buttons', 
+    options = list(dom = 'Bfrtip', 
+                   buttons = c('excel', "csv"),
+                   pageLength = 35,
+                  lengthMenu = c(20, 20, 20, 20)))
+```
+
+## LPA
+
+I ran a non-multilevel LPA first, just to see whether any interesting patterns emerge. We can run multilevel analyses once we decided on a general framework. 
+
+```{r}
+library(tidyLPA)
+data_LPA <- comp_df %>% select(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT)
+
+data_LPA <- data_LPA %>% dplyr::rename(Persu = LRAPER,
+                                       Inspir = LINAP,
+                                       Consul = LCONSUL,
+                                       Integ = LINTEG,
+                                       Appeal = LPEAPP,
+                                       Excha = LEXCH,
+                                       Legit = LLEGTAC,
+                                       Press = LPRESS,
+                                       Coal = LCOALT)
+
+LPA <- data_LPA %>% estimate_profiles(n_profiles = 3:8, models = 1, package = "mplus", 
+                      ANALYSIS = "starts = 200, 10;")  #%>%
+#compare_solutions() #for final model: starts = 7000, 200;
+LPA$model_1_class_3
+LPA$model_1_class_4
+LPA$model_1_class_5
+LPA$model_1_class_6
+LPA$model_1_class_7
+LPA$model_1_class_8
+```
+
+It seems like the profile solutions get better the more profiles we add. As you can see from the plots below, it becomes very hard to interpret the profiles if there are more then approx. 7 distinct profiles. We need to reconsider.. maybe it makes sense to select only a certain amount of leadership tactics. We need to discuss this. 
+
+### 3 profiles
+
+```{r}
+plot_profiles(LPA$model_1_class_3, to_center = F)
+```
+
+As you can see, the mean and variance differs a bit for the different tactics. The mean is generally higher for persuasin, inspiration, consultation. And variance is higher for the other tactics. This is no interesting profile solution - people are not differentiable for the first 4 tactics and the profiles for the last 5 tactics suggest only 'level differences'. It looks similar for the other profile solutions with more profiles added. We need to discuss this. 
+
+### 4 profiles
+
+```{r}
+plot_profiles(LPA$model_1_class_4, to_center = F)
+```
+
+### 5 profiles
+
+```{r}
+plot_profiles(LPA$model_1_class_5, to_center = F)
+```
+
+### 6 profiles
+
+```{r}
+plot_profiles(LPA$model_1_class_6, to_center = F)
+```
+
+### 7 profiles
+
+```{r}
+plot_profiles(LPA$model_1_class_7, to_center = F)
+```
+
+### 8 profiles
+
+```{r}
+plot_profiles(LPA$model_1_class_8, to_center = F)
+```
+
+
+## MLCA
+
+```{r echo = T, eval = F}
+names(comp_df)
+mglca3 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 3, n.init = 1)
+mglca4 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 4, n.init = 1)
+mglca5 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 5, n.init = 1)
+mglca6 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 6, n.init = 1)
+
+gofglca(mglca3, mglca4, mglca5, mglca6)
+
+plot(mglca5)
+```
