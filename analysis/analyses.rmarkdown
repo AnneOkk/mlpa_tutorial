@@ -1,0 +1,364 @@
+---
+title: "LPA Leadership tactics"
+execute:
+  echo: true
+  warning: false
+  message: false
+  cache: true
+format:
+  html:
+    toc: true
+    toc_float: true
+---
+
+```{r}
+source("../R/custom-functions.R")
+```
+
+
+## Reading in data
+
+
+```{r}
+data <- read_data_sav(rel_directory = "/data/", pattern = "data_full.sav")
+data <- data[[2]]
+```
+
+
+## Rename data
+
+
+```{r}
+names(data) <- gsub("^(.*[\\d]*)(\\d)$", "\\1_\\2", names(data))
+```
+
+
+## Select certain columns
+
+
+```{r}
+data_comp <- data %>% select(matches("\\d$")) %>% select(-matches("CHECK|MSELFE1_0"))
+data_no_comp <- data %>% select(-matches("\\d$"))
+```
+
+
+## Make composite data frame
+
+
+```{r}
+comp_split <- data_comp %>% remove_all_labels(.) %>%
+  split.default(sub("_.", "", names(data_comp)))
+
+comp <- purrr::map(comp_split, ~ multicon::composite(.x, nomiss = 0.8), data = .x)
+alph <- purrr::map(comp_split, ~ psych::alpha(.x), data = .x) %>%
+  purrr::map(~ .x$total)
+
+comp_df <- do.call("cbind", comp) %>% cbind(., data_no_comp) %>% remove_all_labels(.)
+alph_df <- do.call("rbind", alph) %>% round(., 2)
+```
+
+
+## Reliabilities
+
+
+```{r reliabilities, include = T}
+# prolific 
+alph_df %>%
+DT::datatable(
+    extensions = 'Buttons', 
+    options = list(dom = 'Bfrtip', 
+                   buttons = c('excel', "csv"),
+                   pageLength = 20))
+```
+
+
+## Correlations
+
+
+```{r}
+# select only numeric 
+comp_df_mum <- comp_df[ , purrr::map_lgl(comp_df, is.numeric)]
+cor_tab <- corstars(comp_df_mum)
+cor_tab %>%
+  DT::datatable(
+    extensions = 'Buttons', 
+    options = list(dom = 'Bfrtip', 
+                   buttons = c('excel', "csv"),
+                   pageLength = 35,
+                  lengthMenu = c(20, 20, 20, 20)))
+
+```
+
+
+## CFA
+
+### Both tacticts types with second order
+
+
+```{r}
+library(lavaan)
+CFA <- '
+  LINAP =~ LINAP_1 + LINAP_2 + LINAP_3 + LINAP_4
+  LCONSUL =~ LCONSUL_1 + LCONSUL_2 + LCONSUL_3 + LCONSUL_4 
+  LINTEG =~ LINTEG_1 + LINTEG_2 + LINTEG_3 + LINTEG_4 
+  LPEAPP =~ LPEAPP_1 + LPEAPP_2 + LPEAPP_3 + LPEAPP_4 
+   
+  # Second order factor SOFTTACTICS 
+  SOFT_TACTICS =~ LINAP + LCONSUL + LINTEG + LPEAPP 
+  
+  LEXCH =~ LEXCH_1 + LEXCH_2 + LEXCH_3 + LEXCH_4 
+  LLEGTAC =~ LLEGTAC_1 + LLEGTAC_2 + LLEGTAC_3 + LLEGTAC_4 
+  LPRESS =~ LPRESS_1 + LPRESS_2+ LPRESS_3 + LPRESS_4 
+  LCOALT =~ LCOALT_1 + LCOALT_2 + LCOALT_3+ LCOALT_4 
+   
+  # Second order factor HARDTACTICS 
+  HARDTACTICS =~ LEXCH + LLEGTAC + LPRESS + LCOALT 
+  
+'
+
+fit1 <- sem(CFA, data = data)
+#summary(fit1, fit.measures=TRUE)
+
+fitMeasures(fit1, c("chisq", "df", "pvalue", "cfi", "rmsea", "rmsea.ci.lower", "rmsea.ci.upper", "tli", "srmr"))
+```
+
+
+### No second order soft
+
+
+```{r}
+library(lavaan)
+library("tidySEM")
+CFA <- '
+  LINAP =~ LINAP_1 + LINAP_2 + LINAP_3 + LINAP_4
+  LCONSUL =~ LCONSUL_1 + LCONSUL_2 + LCONSUL_3 + LCONSUL_4 
+  LINTEG =~ LINTEG_1 + LINTEG_2 + LINTEG_3 + LINTEG_4 
+  LPEAPP =~ LPEAPP_1 + LPEAPP_2 + LPEAPP_3 + LPEAPP_4 
+'
+
+fit1 <- sem(CFA, data = data)
+
+lay <- get_layout("", "LINAP", "","","","LCONSUL","","","",
+                  "LINTEG", "", "", "", "LPEAPP", "", "",
+                  "LINAP_1", "LINAP_2", "LINAP_3", "LINAP_4", "LCONSUL_1", "LCONSUL_2", "LCONSUL_3", "LCONSUL_4", "LINTEG_1", "LINTEG_2", "LINTEG_3", "LINTEG_4", "LPEAPP_1", "LPEAPP_2", "LPEAPP_3", "LPEAPP_4", rows = 2)
+
+graph_sem(fit1, layout = lay, text_size = 3)
+
+fitMeasures(fit1, c("chisq", "df", "pvalue", "cfi", "rmsea", "rmsea.ci.lower", "rmsea.ci.upper", "tli", "srmr"))
+```
+
+
+### No second order hard
+
+
+```{r}
+library(lavaan)
+CFA <- '
+  LEXCH =~ LEXCH_1 + LEXCH_2 + LEXCH_3 + LEXCH_4 
+  LLEGTAC =~ LLEGTAC_1 + LLEGTAC_2 + LLEGTAC_3 + LLEGTAC_4 
+  LPRESS =~ LPRESS_1 + LPRESS_2+ LPRESS_3 + LPRESS_4 
+  LCOALT =~ LCOALT_1 + LCOALT_2 + LCOALT_3+ LCOALT_4 
+'
+
+fit1 <- sem(CFA, data = data)
+
+
+lay <- get_layout("", "LLEGTAC", "","","","LPRESS","","","",
+                  "LEXCH", "", "", "", "LCOALT", "", "",
+                  "LLEGTAC_1", "LLEGTAC_2", "LLEGTAC_3", "LLEGTAC_4", "LPRESS_1", "LPRESS_2", "LPRESS_3", "LPRESS_4", "LEXCH_1", "LEXCH_2", "LEXCH_3", "LEXCH_4", "LCOALT_1", "LCOALT_2", "LCOALT_3", "LCOALT_4", rows = 2)
+
+graph_sem(fit1, layout = lay, text_size = 3)
+
+fitMeasures(fit1, c("chisq", "df", "pvalue", "cfi", "rmsea", "rmsea.ci.lower", "rmsea.ci.upper", "tli", "srmr"))
+```
+
+
+## Multilevel CFA
+
+
+```{r}
+library(lavaan)
+MCFA <- '
+level: 1
+  LINAP_w =~ LINAP_1 + LINAP_2 + LINAP_3 + LINAP_4
+  LCONSUL_w =~ LCONSUL_1 + LCONSUL_2 + LCONSUL_3 + LCONSUL_4 
+  LINTEG_w =~ LINTEG_1 + LINTEG_2 + LINTEG_3 + LINTEG_4 
+  LPEAPP_w =~ LPEAPP_1 + LPEAPP_2 + LPEAPP_3 + LPEAPP_4 
+   
+  # Second order factor SOFTTACTICS 
+  SOFT_TACTICS_w =~ LINAP_w + LCONSUL_w + LINTEG_w + LPEAPP_w 
+  
+level: 2
+  LINAP_b =~ LINAP_1 + LINAP_2 + LINAP_3 + LINAP_4
+  LCONSUL_b =~ LCONSUL_1 + LCONSUL_2 + LCONSUL_3 + LCONSUL_4 
+  LINTEG_b =~ LINTEG_1 + LINTEG_2 + LINTEG_3 + LINTEG_4 
+  LPEAPP_b =~ LPEAPP_1 + LPEAPP_2 + LPEAPP_3 + LPEAPP_4 
+   
+  # Second order factor SOFTTACTICS 
+  SOFT_TACTICS_b =~ LINAP_b + LCONSUL_b + LINTEG_b + LPEAPP_b
+'
+
+fit1 <- sem(MCFA, data = data, cluster = "LG", std.lv  = TRUE, verbose = FALSE, estimator="MLR")
+summary(fit1, fit.measures=TRUE)
+
+
+```
+
+
+## LPA
+
+I ran a non-multilevel LPA first, just to see whether any interesting patterns emerge. We can run multilevel analyses once we decided on a general framework.
+
+
+```{r}
+library(tidyLPA)
+data_LPA <- comp_df %>% select(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT)
+
+data_LPA_soft <- comp_df %>% select(LINAP, LCONSUL, LINTEG, LPEAPP)
+
+data_LPA_hard <- comp_df %>% select(LEXCH, LLEGTAC, LPRESS, LCOALT)
+
+data_LPA <- data_LPA %>% dplyr::rename(Persu = LRAPER,
+                                       Inspir = LINAP,
+                                       Consul = LCONSUL,
+                                       Integ = LINTEG,
+                                       Appeal = LPEAPP,
+                                       Excha = LEXCH,
+                                       Legit = LLEGTAC,
+                                       Press = LPRESS,
+                                       Coal = LCOALT)
+
+data_LPA_soft <- data_LPA_soft %>% dplyr::rename(
+                                       Inspir = LINAP,
+                                       Consul = LCONSUL,
+                                       Integ = LINTEG,
+                                       Appeal = LPEAPP)
+
+data_LPA_hard <- data_LPA_hard %>% dplyr::rename(
+                                       Excha = LEXCH,
+                                       Legit = LLEGTAC,
+                                       Press = LPRESS,
+                                       Coal = LCOALT)
+
+LPA <- data_LPA %>% estimate_profiles(n_profiles = 3:8, models = 1, package = "mplus", 
+                      ANALYSIS = "starts = 200, 10;")  #%>%
+#compare_solutions() #for final model: starts = 7000, 200;
+LPA$model_1_class_3
+LPA$model_1_class_4
+LPA$model_1_class_5
+LPA$model_1_class_6
+LPA$model_1_class_7
+LPA$model_1_class_8
+
+LPA_soft <- data_LPA_soft %>% estimate_profiles(n_profiles = 3:8, models = 1, package = "mplus", 
+                      ANALYSIS = "starts = 200, 10;") 
+
+LPA_hard <- data_LPA_hard %>% estimate_profiles(n_profiles = 3:8, models = 1, package = "mplus", 
+                      ANALYSIS = "starts = 200, 10;") 
+
+```
+
+
+It seems like the profile solutions get better the more profiles we add. As you can see from the plots below, it becomes very hard to interpret the profiles if there are more then approx. 7 distinct profiles. We need to reconsider.. maybe it makes sense to select only a certain amount of leadership tactics. We need to discuss this.
+
+### 3 profiles
+
+
+```{r}
+plot_profiles(LPA$model_1_class_3, to_center = F)
+```
+
+
+As you can see, the mean and variance differs a bit for the different tactics. The mean is generally higher for persuasion, inspiration, consultation. And variance is higher for the other tactics. This is no interesting profile solution - people are not differentiable for the first 4 tactics and the profiles for the last 5 tactics suggest only 'level differences'. It looks similar for the other profile solutions with more profiles added. We need to discuss this.
+
+### 4 profiles
+
+
+```{r}
+plot_profiles(LPA$model_1_class_4, to_center = F)
+```
+
+
+### 5 profiles
+
+
+```{r}
+plot_profiles(LPA$model_1_class_5, to_center = F)
+```
+
+
+### 6 profiles
+
+
+```{r}
+plot_profiles(LPA$model_1_class_6, to_center = F)
+```
+
+
+### 7 profiles
+
+
+```{r}
+plot_profiles(LPA$model_1_class_7, to_center = F)
+```
+
+
+### 8 profiles
+
+
+```{r}
+plot_profiles(LPA$model_1_class_8, to_center = F)
+```
+
+
+## Soft tactics only
+
+
+```{r}
+plot_profiles(LPA_soft$model_1_class_3, to_center = F)
+```
+
+```{r}
+plot_profiles(LPA_soft$model_1_class_4, to_center = F)
+```
+
+```{r}
+plot_profiles(LPA_soft$model_1_class_5, to_center = F)
+```
+
+
+## Hard tactics only
+
+
+```{r}
+plot_profiles(LPA_hard$model_1_class_3, to_center = F)
+```
+
+```{r}
+plot_profiles(LPA_hard$model_1_class_4, to_center = F)
+```
+
+```{r}
+plot_profiles(LPA_hard$model_1_class_5, to_center = F)
+```
+
+
+## MLCA
+
+
+```{r echo = T, eval = F}
+names(comp_df)
+mglca3 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 3, n.init = 1)
+mglca4 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 4, n.init = 1)
+mglca5 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 5, n.init = 1)
+mglca6 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
+group = LG, data = comp_df, nclass = 6, n.init = 1)
+
+gofglca(mglca3, mglca4, mglca5, mglca6)
+
+plot(mglca5)
+```
+

@@ -1,0 +1,1130 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+08/25/2022  11:02 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  model 1 with 6 classes
+  DATA:
+  FILE = "data_d729b7d93a8255a97eef16254fd29562.dat";
+
+  VARIABLE:
+  NAMES = Persu Inspir Consul Integ Appeal Excha Legit Press Coal;
+   MISSING=.;
+   CLASSES = c1(6);
+
+  ANALYSIS:
+  TYPE = mixture;
+  starts = 200, 10;
+  MODEL:
+  %c1#1%
+  Persu (vPersu);
+  Inspir (vInspir);
+  Consul (vConsul);
+  Integ (vInteg);
+  Appeal (vAppeal);
+  Excha (vExcha);
+  Legit (vLegit);
+  Press (vPress);
+  Coal (vCoal);
+
+  Persu WITH Inspir@0;
+  Persu WITH Consul@0;
+  Persu WITH Integ@0;
+  Persu WITH Appeal@0;
+  Persu WITH Excha@0;
+  Persu WITH Legit@0;
+  Persu WITH Press@0;
+  Persu WITH Coal@0;
+  Inspir WITH Consul@0;
+  Inspir WITH Integ@0;
+  Inspir WITH Appeal@0;
+  Inspir WITH Excha@0;
+  Inspir WITH Legit@0;
+  Inspir WITH Press@0;
+  Inspir WITH Coal@0;
+  Consul WITH Integ@0;
+  Consul WITH Appeal@0;
+  Consul WITH Excha@0;
+  Consul WITH Legit@0;
+  Consul WITH Press@0;
+  Consul WITH Coal@0;
+  Integ WITH Appeal@0;
+  Integ WITH Excha@0;
+  Integ WITH Legit@0;
+  Integ WITH Press@0;
+  Integ WITH Coal@0;
+  Appeal WITH Excha@0;
+  Appeal WITH Legit@0;
+  Appeal WITH Press@0;
+  Appeal WITH Coal@0;
+  Excha WITH Legit@0;
+  Excha WITH Press@0;
+  Excha WITH Coal@0;
+  Legit WITH Press@0;
+  Legit WITH Coal@0;
+  Press WITH Coal@0;
+
+  %c1#2%
+  Persu (vPersu);
+  Inspir (vInspir);
+  Consul (vConsul);
+  Integ (vInteg);
+  Appeal (vAppeal);
+  Excha (vExcha);
+  Legit (vLegit);
+  Press (vPress);
+  Coal (vCoal);
+
+  Persu WITH Inspir@0;
+  Persu WITH Consul@0;
+  Persu WITH Integ@0;
+  Persu WITH Appeal@0;
+  Persu WITH Excha@0;
+  Persu WITH Legit@0;
+  Persu WITH Press@0;
+  Persu WITH Coal@0;
+  Inspir WITH Consul@0;
+  Inspir WITH Integ@0;
+  Inspir WITH Appeal@0;
+  Inspir WITH Excha@0;
+  Inspir WITH Legit@0;
+  Inspir WITH Press@0;
+  Inspir WITH Coal@0;
+  Consul WITH Integ@0;
+  Consul WITH Appeal@0;
+  Consul WITH Excha@0;
+  Consul WITH Legit@0;
+  Consul WITH Press@0;
+  Consul WITH Coal@0;
+  Integ WITH Appeal@0;
+  Integ WITH Excha@0;
+  Integ WITH Legit@0;
+  Integ WITH Press@0;
+  Integ WITH Coal@0;
+  Appeal WITH Excha@0;
+  Appeal WITH Legit@0;
+  Appeal WITH Press@0;
+  Appeal WITH Coal@0;
+  Excha WITH Legit@0;
+  Excha WITH Press@0;
+  Excha WITH Coal@0;
+  Legit WITH Press@0;
+  Legit WITH Coal@0;
+  Press WITH Coal@0;
+
+  %c1#3%
+  Persu (vPersu);
+  Inspir (vInspir);
+  Consul (vConsul);
+  Integ (vInteg);
+  Appeal (vAppeal);
+  Excha (vExcha);
+  Legit (vLegit);
+  Press (vPress);
+  Coal (vCoal);
+
+  Persu WITH Inspir@0;
+  Persu WITH Consul@0;
+  Persu WITH Integ@0;
+  Persu WITH Appeal@0;
+  Persu WITH Excha@0;
+  Persu WITH Legit@0;
+  Persu WITH Press@0;
+  Persu WITH Coal@0;
+  Inspir WITH Consul@0;
+  Inspir WITH Integ@0;
+  Inspir WITH Appeal@0;
+  Inspir WITH Excha@0;
+  Inspir WITH Legit@0;
+  Inspir WITH Press@0;
+  Inspir WITH Coal@0;
+  Consul WITH Integ@0;
+  Consul WITH Appeal@0;
+  Consul WITH Excha@0;
+  Consul WITH Legit@0;
+  Consul WITH Press@0;
+  Consul WITH Coal@0;
+  Integ WITH Appeal@0;
+  Integ WITH Excha@0;
+  Integ WITH Legit@0;
+  Integ WITH Press@0;
+  Integ WITH Coal@0;
+  Appeal WITH Excha@0;
+  Appeal WITH Legit@0;
+  Appeal WITH Press@0;
+  Appeal WITH Coal@0;
+  Excha WITH Legit@0;
+  Excha WITH Press@0;
+  Excha WITH Coal@0;
+  Legit WITH Press@0;
+  Legit WITH Coal@0;
+  Press WITH Coal@0;
+
+  %c1#4%
+  Persu (vPersu);
+  Inspir (vInspir);
+  Consul (vConsul);
+  Integ (vInteg);
+  Appeal (vAppeal);
+  Excha (vExcha);
+  Legit (vLegit);
+  Press (vPress);
+  Coal (vCoal);
+
+  Persu WITH Inspir@0;
+  Persu WITH Consul@0;
+  Persu WITH Integ@0;
+  Persu WITH Appeal@0;
+  Persu WITH Excha@0;
+  Persu WITH Legit@0;
+  Persu WITH Press@0;
+  Persu WITH Coal@0;
+  Inspir WITH Consul@0;
+  Inspir WITH Integ@0;
+  Inspir WITH Appeal@0;
+  Inspir WITH Excha@0;
+  Inspir WITH Legit@0;
+  Inspir WITH Press@0;
+  Inspir WITH Coal@0;
+  Consul WITH Integ@0;
+  Consul WITH Appeal@0;
+  Consul WITH Excha@0;
+  Consul WITH Legit@0;
+  Consul WITH Press@0;
+  Consul WITH Coal@0;
+  Integ WITH Appeal@0;
+  Integ WITH Excha@0;
+  Integ WITH Legit@0;
+  Integ WITH Press@0;
+  Integ WITH Coal@0;
+  Appeal WITH Excha@0;
+  Appeal WITH Legit@0;
+  Appeal WITH Press@0;
+  Appeal WITH Coal@0;
+  Excha WITH Legit@0;
+  Excha WITH Press@0;
+  Excha WITH Coal@0;
+  Legit WITH Press@0;
+  Legit WITH Coal@0;
+  Press WITH Coal@0;
+
+  %c1#5%
+  Persu (vPersu);
+  Inspir (vInspir);
+  Consul (vConsul);
+  Integ (vInteg);
+  Appeal (vAppeal);
+  Excha (vExcha);
+  Legit (vLegit);
+  Press (vPress);
+  Coal (vCoal);
+
+  Persu WITH Inspir@0;
+  Persu WITH Consul@0;
+  Persu WITH Integ@0;
+  Persu WITH Appeal@0;
+  Persu WITH Excha@0;
+  Persu WITH Legit@0;
+  Persu WITH Press@0;
+  Persu WITH Coal@0;
+  Inspir WITH Consul@0;
+  Inspir WITH Integ@0;
+  Inspir WITH Appeal@0;
+  Inspir WITH Excha@0;
+  Inspir WITH Legit@0;
+  Inspir WITH Press@0;
+  Inspir WITH Coal@0;
+  Consul WITH Integ@0;
+  Consul WITH Appeal@0;
+  Consul WITH Excha@0;
+  Consul WITH Legit@0;
+  Consul WITH Press@0;
+  Consul WITH Coal@0;
+  Integ WITH Appeal@0;
+  Integ WITH Excha@0;
+  Integ WITH Legit@0;
+  Integ WITH Press@0;
+  Integ WITH Coal@0;
+  Appeal WITH Excha@0;
+  Appeal WITH Legit@0;
+  Appeal WITH Press@0;
+  Appeal WITH Coal@0;
+  Excha WITH Legit@0;
+  Excha WITH Press@0;
+  Excha WITH Coal@0;
+  Legit WITH Press@0;
+  Legit WITH Coal@0;
+  Press WITH Coal@0;
+
+  %c1#6%
+  Persu (vPersu);
+  Inspir (vInspir);
+  Consul (vConsul);
+  Integ (vInteg);
+  Appeal (vAppeal);
+  Excha (vExcha);
+  Legit (vLegit);
+  Press (vPress);
+  Coal (vCoal);
+
+  Persu WITH Inspir@0;
+  Persu WITH Consul@0;
+  Persu WITH Integ@0;
+  Persu WITH Appeal@0;
+  Persu WITH Excha@0;
+  Persu WITH Legit@0;
+  Persu WITH Press@0;
+  Persu WITH Coal@0;
+  Inspir WITH Consul@0;
+  Inspir WITH Integ@0;
+  Inspir WITH Appeal@0;
+  Inspir WITH Excha@0;
+  Inspir WITH Legit@0;
+  Inspir WITH Press@0;
+  Inspir WITH Coal@0;
+  Consul WITH Integ@0;
+  Consul WITH Appeal@0;
+  Consul WITH Excha@0;
+  Consul WITH Legit@0;
+  Consul WITH Press@0;
+  Consul WITH Coal@0;
+  Integ WITH Appeal@0;
+  Integ WITH Excha@0;
+  Integ WITH Legit@0;
+  Integ WITH Press@0;
+  Integ WITH Coal@0;
+  Appeal WITH Excha@0;
+  Appeal WITH Legit@0;
+  Appeal WITH Press@0;
+  Appeal WITH Coal@0;
+  Excha WITH Legit@0;
+  Excha WITH Press@0;
+  Excha WITH Coal@0;
+  Legit WITH Press@0;
+  Legit WITH Coal@0;
+  Press WITH Coal@0;
+
+
+  OUTPUT:
+  TECH14;
+
+  SAVEDATA:
+  FILE IS model_1_class_6.dat;
+  SAVE = cprobabilities;
+
+
+
+*** WARNING in MODEL command
+  All variables are uncorrelated with all other variables within class.
+  Check that this is what is intended.
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+model 1 with 6 classes
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        1401
+
+Number of dependent variables                                    9
+Number of independent variables                                  0
+Number of continuous latent variables                            0
+Number of categorical latent variables                           1
+
+Observed dependent variables
+
+  Continuous
+   PERSU       INSPIR      CONSUL      INTEG       APPEAL      EXCHA
+   LEGIT       PRESS       COAL
+
+Categorical latent variables
+   C1
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Optimization Specifications for the Quasi-Newton Algorithm for
+Continuous Outcomes
+  Maximum number of iterations                                 100
+  Convergence criterion                                  0.100D-05
+Optimization Specifications for the EM Algorithm
+  Maximum number of iterations                                 500
+  Convergence criteria
+    Loglikelihood change                                 0.100D-06
+    Relative loglikelihood change                        0.100D-06
+    Derivative                                           0.100D-05
+Optimization Specifications for the M step of the EM Algorithm for
+Categorical Latent variables
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-05
+  Basis for M step termination                           ITERATION
+Optimization Specifications for the M step of the EM Algorithm for
+Censored, Binary or Ordered Categorical (Ordinal), Unordered
+Categorical (Nominal) and Count Outcomes
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-05
+  Basis for M step termination                           ITERATION
+  Maximum value for logit thresholds                            15
+  Minimum value for logit thresholds                           -15
+  Minimum expected cell size for chi-square              0.100D-01
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+Random Starts Specifications
+  Number of initial stage random starts                        200
+  Number of final stage optimizations                           10
+  Number of initial stage iterations                            10
+  Initial stage convergence criterion                    0.100D+01
+  Random starts scale                                    0.500D+01
+  Random seed for generating random starts                       0
+
+Input data file(s)
+  data_d729b7d93a8255a97eef16254fd29562.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             1
+     Number of y missing data patterns           1
+     Number of u missing data patterns           0
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT FOR Y
+
+
+           Covariance Coverage
+              PERSU         INSPIR        CONSUL        INTEG         APPEAL
+              ________      ________      ________      ________      ________
+ PERSU          1.000
+ INSPIR         1.000         1.000
+ CONSUL         1.000         1.000         1.000
+ INTEG          1.000         1.000         1.000         1.000
+ APPEAL         1.000         1.000         1.000         1.000         1.000
+ EXCHA          1.000         1.000         1.000         1.000         1.000
+ LEGIT          1.000         1.000         1.000         1.000         1.000
+ PRESS          1.000         1.000         1.000         1.000         1.000
+ COAL           1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              EXCHA         LEGIT         PRESS         COAL
+              ________      ________      ________      ________
+ EXCHA          1.000
+ LEGIT          1.000         1.000
+ PRESS          1.000         1.000         1.000
+ COAL           1.000         1.000         1.000         1.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     PERSU                 3.828       0.029       2.000    0.14%       3.500      3.750      3.750
+            1401.000       0.283      -0.028       5.000    4.21%       4.000      4.250
+     INSPIR                3.760      -0.256       1.750    0.14%       3.250      3.750      3.750
+            1401.000       0.301       0.275       5.000    2.07%       4.000      4.250
+     CONSUL                3.994      -0.433       2.000    0.43%       3.500      3.750      4.000
+            1401.000       0.353       0.422       5.000    8.49%       4.000      4.500
+     INTEG                 3.606      -0.300       1.000    0.21%       3.000      3.500      3.750
+            1401.000       0.490       0.254       5.000    4.43%       3.750      4.250
+     APPEAL                2.075       0.755       1.000   16.13%       1.250      1.750      2.000
+            1401.000       0.759      -0.052       5.000    0.14%       2.250      2.750
+     EXCHA                 2.075       0.726       1.000   20.27%       1.000      1.500      2.000
+            1401.000       0.890      -0.222       5.000    0.64%       2.250      3.000
+     LEGIT                 2.189       0.831       1.000   15.77%       1.250      1.750      2.000
+            1401.000       1.004       0.013       5.000    2.00%       2.250      3.000
+     PRESS                 2.962      -0.178       1.000    1.28%       2.250      2.750      3.000
+            1401.000       0.549      -0.039       5.000    0.14%       3.250      3.500
+     COAL                  1.714       1.308       1.000   30.91%       1.000      1.250      1.500
+            1401.000       0.626       1.305       5.000    0.14%       1.750      2.250
+
+RANDOM STARTS RESULTS RANKED FROM THE BEST TO THE WORST LOGLIKELIHOOD VALUES
+
+Final stage loglikelihood values at local maxima, seeds, and initial stage start numbers:
+
+          -12152.264  848331           137
+          -12152.264  618000           190
+          -12152.264  751153           110
+          -12152.264  468036           131
+          -12152.264  576596           99
+          -12152.264  754100           56
+          -12152.264  966014           37
+          -12152.808  723775           97
+          -12172.852  286735           175
+          -12172.852  794236           127
+
+
+
+THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED.  RERUN WITH AT LEAST TWICE THE
+RANDOM STARTS TO CHECK THAT THE BEST LOGLIKELIHOOD IS STILL OBTAINED AND REPLICATED.
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       68
+
+Loglikelihood
+
+          H0 Value                      -12152.264
+          H0 Scaling Correction Factor      1.3762
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   24440.528
+          Bayesian (BIC)                 24797.184
+          Sample-Size Adjusted BIC       24581.173
+            (n* = (n + 2) / 24)
+
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON THE ESTIMATED MODEL
+
+    Latent
+   Classes
+
+       1         96.29465          0.06873
+       2        580.73772          0.41452
+       3        106.26917          0.07585
+       4        379.31492          0.27075
+       5         64.98634          0.04639
+       6        173.39720          0.12377
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON ESTIMATED POSTERIOR PROBABILITIES
+
+    Latent
+   Classes
+
+       1         96.29465          0.06873
+       2        580.73772          0.41452
+       3        106.26917          0.07585
+       4        379.31492          0.27075
+       5         64.98634          0.04639
+       6        173.39720          0.12377
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON THEIR MOST LIKELY LATENT CLASS MEMBERSHIP
+
+Class Counts and Proportions
+
+    Latent
+   Classes
+
+       1               90          0.06424
+       2              587          0.41899
+       3               96          0.06852
+       4              385          0.27480
+       5               67          0.04782
+       6              176          0.12562
+
+
+CLASSIFICATION QUALITY
+
+     Entropy                         0.840
+
+
+Classification Probabilities for the Most Likely Latent Class Membership (Column)
+by Latent Class (Row)
+
+           1        2        3        4        5        6
+
+    1   0.732    0.242    0.022    0.004    0.000    0.000
+    2   0.033    0.913    0.004    0.046    0.003    0.000
+    3   0.001    0.027    0.796    0.152    0.000    0.024
+    4   0.000    0.080    0.017    0.877    0.011    0.015
+    5   0.000    0.004    0.000    0.061    0.933    0.001
+    6   0.000    0.000    0.002    0.029    0.001    0.968
+
+
+Logits for the Classification Probabilities for the Most Likely Latent Class Membership (Column)
+by Latent Class (Row)
+
+              1        2        3        4        5        6
+
+    1     13.503   12.398    9.984    8.393    0.000    0.000
+    2     10.410   13.725    8.388   10.736    8.079    0.000
+    3     -2.878    0.096    3.495    1.838   -4.860    0.000
+    4     -3.717    1.693    0.148    4.092   -0.275    0.000
+    5     -6.841    1.515   -2.947    4.186    6.906    0.000
+    6    -13.783  -13.783   -6.233   -3.509   -6.579    0.000
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Latent Class 1
+
+ PERSU    WITH
+    INSPIR             0.000      0.000    999.000    999.000
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INSPIR   WITH
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ CONSUL   WITH
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INTEG    WITH
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ APPEAL   WITH
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ EXCHA    WITH
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ LEGIT    WITH
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ PRESS    WITH
+    COAL               0.000      0.000    999.000    999.000
+
+ Means
+    PERSU              3.201      0.203     15.806      0.000
+    INSPIR             2.950      0.393      7.506      0.000
+    CONSUL             3.720      0.135     27.625      0.000
+    INTEG              2.828      0.341      8.282      0.000
+    APPEAL             1.403      0.140     10.017      0.000
+    EXCHA              1.283      0.138      9.325      0.000
+    LEGIT              1.347      0.173      7.805      0.000
+    PRESS              2.342      0.197     11.870      0.000
+    COAL               1.165      0.060     19.297      0.000
+
+ Variances
+    PERSU              0.214      0.013     17.083      0.000
+    INSPIR             0.213      0.012     17.943      0.000
+    CONSUL             0.258      0.017     14.923      0.000
+    INTEG              0.357      0.017     20.494      0.000
+    APPEAL             0.344      0.021     16.682      0.000
+    EXCHA              0.224      0.027      8.277      0.000
+    LEGIT              0.572      0.030     18.753      0.000
+    PRESS              0.402      0.017     24.381      0.000
+    COAL               0.327      0.017     19.694      0.000
+
+Latent Class 2
+
+ PERSU    WITH
+    INSPIR             0.000      0.000    999.000    999.000
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INSPIR   WITH
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ CONSUL   WITH
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INTEG    WITH
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ APPEAL   WITH
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ EXCHA    WITH
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ LEGIT    WITH
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ PRESS    WITH
+    COAL               0.000      0.000    999.000    999.000
+
+ Means
+    PERSU              3.813      0.079     48.534      0.000
+    INSPIR             3.794      0.080     47.346      0.000
+    CONSUL             4.096      0.055     74.943      0.000
+    INTEG              3.458      0.069     49.910      0.000
+    APPEAL             1.535      0.033     46.258      0.000
+    EXCHA              1.347      0.025     54.612      0.000
+    LEGIT              1.738      0.047     36.658      0.000
+    PRESS              2.688      0.055     48.990      0.000
+    COAL               1.378      0.034     40.243      0.000
+
+ Variances
+    PERSU              0.214      0.013     17.083      0.000
+    INSPIR             0.213      0.012     17.943      0.000
+    CONSUL             0.258      0.017     14.923      0.000
+    INTEG              0.357      0.017     20.494      0.000
+    APPEAL             0.344      0.021     16.682      0.000
+    EXCHA              0.224      0.027      8.277      0.000
+    LEGIT              0.572      0.030     18.753      0.000
+    PRESS              0.402      0.017     24.381      0.000
+    COAL               0.327      0.017     19.694      0.000
+
+Latent Class 3
+
+ PERSU    WITH
+    INSPIR             0.000      0.000    999.000    999.000
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INSPIR   WITH
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ CONSUL   WITH
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INTEG    WITH
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ APPEAL   WITH
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ EXCHA    WITH
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ LEGIT    WITH
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ PRESS    WITH
+    COAL               0.000      0.000    999.000    999.000
+
+ Means
+    PERSU              3.613      0.078     46.502      0.000
+    INSPIR             3.271      0.057     57.495      0.000
+    CONSUL             3.088      0.212     14.582      0.000
+    INTEG              3.081      0.068     45.466      0.000
+    APPEAL             2.236      0.093     24.046      0.000
+    EXCHA              2.687      0.088     30.627      0.000
+    LEGIT              2.103      0.123     17.159      0.000
+    PRESS              3.504      0.120     29.177      0.000
+    COAL               1.785      0.120     14.820      0.000
+
+ Variances
+    PERSU              0.214      0.013     17.083      0.000
+    INSPIR             0.213      0.012     17.943      0.000
+    CONSUL             0.258      0.017     14.923      0.000
+    INTEG              0.357      0.017     20.494      0.000
+    APPEAL             0.344      0.021     16.682      0.000
+    EXCHA              0.224      0.027      8.277      0.000
+    LEGIT              0.572      0.030     18.753      0.000
+    PRESS              0.402      0.017     24.381      0.000
+    COAL               0.327      0.017     19.694      0.000
+
+Latent Class 4
+
+ PERSU    WITH
+    INSPIR             0.000      0.000    999.000    999.000
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INSPIR   WITH
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ CONSUL   WITH
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INTEG    WITH
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ APPEAL   WITH
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ EXCHA    WITH
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ LEGIT    WITH
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ PRESS    WITH
+    COAL               0.000      0.000    999.000    999.000
+
+ Means
+    PERSU              3.889      0.043     89.900      0.000
+    INSPIR             3.858      0.050     76.683      0.000
+    CONSUL             4.127      0.035    118.393      0.000
+    INTEG              3.925      0.048     80.999      0.000
+    APPEAL             2.352      0.045     51.729      0.000
+    EXCHA              2.528      0.058     43.926      0.000
+    LEGIT              2.307      0.054     42.878      0.000
+    PRESS              2.997      0.034     89.043      0.000
+    COAL               1.672      0.038     43.873      0.000
+
+ Variances
+    PERSU              0.214      0.013     17.083      0.000
+    INSPIR             0.213      0.012     17.943      0.000
+    CONSUL             0.258      0.017     14.923      0.000
+    INTEG              0.357      0.017     20.494      0.000
+    APPEAL             0.344      0.021     16.682      0.000
+    EXCHA              0.224      0.027      8.277      0.000
+    LEGIT              0.572      0.030     18.753      0.000
+    PRESS              0.402      0.017     24.381      0.000
+    COAL               0.327      0.017     19.694      0.000
+
+Latent Class 5
+
+ PERSU    WITH
+    INSPIR             0.000      0.000    999.000    999.000
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INSPIR   WITH
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ CONSUL   WITH
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INTEG    WITH
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ APPEAL   WITH
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ EXCHA    WITH
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ LEGIT    WITH
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ PRESS    WITH
+    COAL               0.000      0.000    999.000    999.000
+
+ Means
+    PERSU              4.712      0.047    101.095      0.000
+    INSPIR             4.350      0.101     42.926      0.000
+    CONSUL             4.578      0.096     47.732      0.000
+    INTEG              4.330      0.105     41.327      0.000
+    APPEAL             2.311      0.166     13.904      0.000
+    EXCHA              1.855      0.082     22.568      0.000
+    LEGIT              3.902      0.202     19.306      0.000
+    PRESS              3.680      0.112     32.732      0.000
+    COAL               2.061      0.122     16.921      0.000
+
+ Variances
+    PERSU              0.214      0.013     17.083      0.000
+    INSPIR             0.213      0.012     17.943      0.000
+    CONSUL             0.258      0.017     14.923      0.000
+    INTEG              0.357      0.017     20.494      0.000
+    APPEAL             0.344      0.021     16.682      0.000
+    EXCHA              0.224      0.027      8.277      0.000
+    LEGIT              0.572      0.030     18.753      0.000
+    PRESS              0.402      0.017     24.381      0.000
+    COAL               0.327      0.017     19.694      0.000
+
+Latent Class 6
+
+ PERSU    WITH
+    INSPIR             0.000      0.000    999.000    999.000
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INSPIR   WITH
+    CONSUL             0.000      0.000    999.000    999.000
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ CONSUL   WITH
+    INTEG              0.000      0.000    999.000    999.000
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ INTEG    WITH
+    APPEAL             0.000      0.000    999.000    999.000
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ APPEAL   WITH
+    EXCHA              0.000      0.000    999.000    999.000
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ EXCHA    WITH
+    LEGIT              0.000      0.000    999.000    999.000
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ LEGIT    WITH
+    PRESS              0.000      0.000    999.000    999.000
+    COAL               0.000      0.000    999.000    999.000
+
+ PRESS    WITH
+    COAL               0.000      0.000    999.000    999.000
+
+ Means
+    PERSU              3.897      0.042     92.414      0.000
+    INSPIR             3.963      0.044     90.928      0.000
+    CONSUL             3.851      0.044     87.141      0.000
+    INTEG              3.888      0.047     82.253      0.000
+    APPEAL             3.460      0.061     56.982      0.000
+    EXCHA              3.672      0.051     71.732      0.000
+    LEGIT              3.321      0.079     42.009      0.000
+    PRESS              3.546      0.047     75.313      0.000
+    COAL               3.064      0.077     39.975      0.000
+
+ Variances
+    PERSU              0.214      0.013     17.083      0.000
+    INSPIR             0.213      0.012     17.943      0.000
+    CONSUL             0.258      0.017     14.923      0.000
+    INTEG              0.357      0.017     20.494      0.000
+    APPEAL             0.344      0.021     16.682      0.000
+    EXCHA              0.224      0.027      8.277      0.000
+    LEGIT              0.572      0.030     18.753      0.000
+    PRESS              0.402      0.017     24.381      0.000
+    COAL               0.327      0.017     19.694      0.000
+
+Categorical Latent Variables
+
+ Means
+    C1#1              -0.588      1.013     -0.581      0.561
+    C1#2               1.209      0.174      6.950      0.000
+    C1#3              -0.490      0.258     -1.898      0.058
+    C1#4               0.783      0.130      6.043      0.000
+    C1#5              -0.981      0.190     -5.167      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.531E-03
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 14 OUTPUT
+
+     Random Starts Specifications for the k-1 Class Analysis Model
+        Number of initial stage random starts                 200
+        Number of final stage optimizations                    10
+
+     Random Starts Specification for the k-1 Class Model for Generated Data
+        Number of initial stage random starts                   0
+        Number of final stage optimizations for the
+           initial stage random starts                          0
+     Random Starts Specification for the k Class Model for Generated Data
+        Number of initial stage random starts                  40
+        Number of final stage optimizations                     8
+     Number of bootstrap draws requested                   Varies
+
+
+     PARAMETRIC BOOTSTRAPPED LIKELIHOOD RATIO TEST FOR 5 (H0) VERSUS 6 CLASSES
+
+          H0 Loglikelihood Value                       -12266.327
+          2 Times the Loglikelihood Difference            228.126
+          Difference in the Number of Parameters               10
+          Approximate P-Value                              0.0000
+          Successful Bootstrap Draws                            5
+
+     WARNING:  OF THE 5 BOOTSTRAP DRAWS, 3 DRAWS HAD BOTH A SMALLER LRT VALUE THAN THE
+     OBSERVED LRT VALUE AND NOT A REPLICATED BEST LOGLIKELIHOOD VALUE FOR THE 6-CLASS MODEL.
+     THIS MEANS THAT THE P-VALUE MAY NOT BE TRUSTWORTHY DUE TO LOCAL MAXIMA.
+     INCREASE THE NUMBER OF RANDOM STARTS USING THE LRTSTARTS OPTION.
+
+
+
+SAVEDATA INFORMATION
+
+
+  Save file
+    model_1_class_6.dat
+
+  Order and format of variables
+
+    PERSU          F10.3
+    INSPIR         F10.3
+    CONSUL         F10.3
+    INTEG          F10.3
+    APPEAL         F10.3
+    EXCHA          F10.3
+    LEGIT          F10.3
+    PRESS          F10.3
+    COAL           F10.3
+    CPROB1         F10.3
+    CPROB2         F10.3
+    CPROB3         F10.3
+    CPROB4         F10.3
+    CPROB5         F10.3
+    CPROB6         F10.3
+    C1             F10.3
+
+  Save file format
+    16F10.3
+
+  Save file record length    10000
+
+
+     Beginning Time:  11:02:37
+        Ending Time:  11:03:07
+       Elapsed Time:  00:00:30
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen
