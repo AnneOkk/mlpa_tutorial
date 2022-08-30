@@ -4,11 +4,13 @@ execute:
   echo: true
   warning: false
   message: false
-  cache: true
+  cache: false
 format:
   html:
+    self-contained: true
     toc: true
     toc_float: true
+    toc-depth: 3
 ---
 
 ```{r}
@@ -18,7 +20,7 @@ source("../R/custom-functions.R")
 ## Reading in data
 
 ```{r}
-data <- read_data_sav(rel_directory = "/data/", pattern = "data_full.sav")
+data <- read_data_sav(rel_directory = "/data/", pattern = "data_full_lead.sav")
 data <- data[[2]]
 ```
 
@@ -31,7 +33,7 @@ names(data) <- gsub("^(.*[\\d]*)(\\d)$", "\\1_\\2", names(data))
 ## Select certain columns
 
 ```{r}
-data_comp <- data %>% select(matches("\\d$")) %>% select(-matches("CHECK|MSELFE1_0"))
+data_comp <- data %>% select(matches("\\d$")) %>% select(-matches("CHECK|MSELFE1_0|Q2"))
 data_no_comp <- data %>% select(-matches("\\d$"))
 ```
 
@@ -154,9 +156,11 @@ graph_sem(fit1, layout = lay, text_size = 3)
 fitMeasures(fit1, c("chisq", "df", "pvalue", "cfi", "rmsea", "rmsea.ci.lower", "rmsea.ci.upper", "tli", "srmr"))
 ```
 
-## Multilevel CFA
 
 ```{r}
+#| eval: false
+
+# Multilevel CFA
 library(lavaan)
 MCFA <- '
 level: 1
@@ -190,11 +194,20 @@ I ran a non-multilevel LPA first, just to see whether any interesting patterns e
 
 ```{r}
 library(tidyLPA)
+library(multicon)
 data_LPA <- comp_df %>% select(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT)
 
 data_LPA_soft <- comp_df %>% select(LINAP, LCONSUL, LINTEG, LPEAPP)
 
 data_LPA_hard <- comp_df %>% select(LEXCH, LLEGTAC, LPRESS, LCOALT)
+
+
+data_LPA_overall <- cbind(rowMeans(cbind(data_LPA$LINAP, data_LPA$LCONSUL, data_LPA$LINTEG, data_LPA$LPEAPP)), 
+                          rowMeans(cbind(data_LPA$LEXCH, data_LPA$LLEGTAC, data_LPA$LPRESS, data_LPA$LCOALT)), 
+                          data_LPA$LRAPER)
+
+
+colnames(data_LPA_overall) <- c("soft", "hard", "ratio") 
 
 data_LPA <- data_LPA %>% dplyr::rename(Persu = LRAPER,
                                        Inspir = LINAP,
@@ -232,6 +245,9 @@ LPA_soft <- data_LPA_soft %>% estimate_profiles(n_profiles = 3:8, models = 1, pa
                       ANALYSIS = "starts = 200, 10;") 
 
 LPA_hard <- data_LPA_hard %>% estimate_profiles(n_profiles = 3:8, models = 1, package = "mplus", 
+                      ANALYSIS = "starts = 200, 10;") 
+
+LPA_overall <- data_LPA_overall %>% estimate_profiles(n_profiles = 3:8, models = 1, package = "mplus", 
                       ANALYSIS = "starts = 200, 10;") 
 
 ```
@@ -278,35 +294,105 @@ plot_profiles(LPA$model_1_class_8, to_center = F)
 
 ## Soft tactics only
 
+### 3 profiles
+
 ```{r}
 plot_profiles(LPA_soft$model_1_class_3, to_center = F)
+LPA_soft$model_1_class_3
 ```
 
+### 4 profiles
 ```{r}
 plot_profiles(LPA_soft$model_1_class_4, to_center = F)
+LPA_soft$model_1_class_4
 ```
 
+### 5 profiles
 ```{r}
 plot_profiles(LPA_soft$model_1_class_5, to_center = F)
+LPA_soft$model_1_class_5
+```
+
+### 6 profiles
+```{r}
+plot_profiles(LPA_soft$model_1_class_6, to_center = F)
+LPA_soft$model_1_class_6
 ```
 
 ## Hard tactics only
 
+### 3 profiles
 ```{r}
 plot_profiles(LPA_hard$model_1_class_3, to_center = F)
+LPA_hard$model_1_class_3
 ```
 
+### 4 profiles
 ```{r}
 plot_profiles(LPA_hard$model_1_class_4, to_center = F)
+LPA_hard$model_1_class_4
+```
+
+### 5 profiles
+```{r}
+plot_profiles(LPA_hard$model_1_class_5, to_center = F)
+LPA_hard$model_1_class_5
+```
+
+### 6 profiles
+```{r}
+plot_profiles(LPA_hard$model_1_class_6, to_center = F)
+LPA_hard$model_1_class_6
+```
+
+
+## Soft, hard, rational persuasion
+
+### 3 profiles
+
+```{r}
+plot_profiles(LPA_overall$model_1_class_3, to_center = F)
+LPA_hard$model_1_class_3
+```
+### 4 profiles
+
+```{r}
+plot_profiles(LPA_overall$model_1_class_4, to_center = F)
+LPA_hard$model_1_class_4
+```
+
+### 5 profiles
+
+```{r}
+plot_profiles(LPA_overall$model_1_class_5, to_center = F)
+LPA_hard$model_1_class_5
+```
+
+### 6 profiles
+
+```{r}
+plot_profiles(LPA_overall$model_1_class_6, to_center = F)
+LPA_hard$model_1_class_6
+```
+
+### 7 profiles
+
+```{r}
+plot_profiles(LPA_overall$model_1_class_7, to_center = F)
+LPA_hard$model_1_class_7
+```
+
+### 8 profiles
+
+```{r}
+plot_profiles(LPA_overall$model_1_class_8, to_center = F)
+LPA_hard$model_1_class_8
 ```
 
 ```{r}
-plot_profiles(LPA_hard$model_1_class_5, to_center = F)
-```
+#| include: false
 
 ## MLCA
-
-```{r echo = T, eval = F}
 names(comp_df)
 mglca3 = glca(item(LRAPER, LINAP, LCONSUL, LINTEG, LPEAPP, LEXCH, LLEGTAC, LPRESS, LCOALT) ~ 1,
 group = LG, data = comp_df, nclass = 3, n.init = 1)
