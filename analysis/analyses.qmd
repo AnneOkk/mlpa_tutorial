@@ -17,12 +17,17 @@ format:
 source("../R/custom-functions.R")
 ```
 
+# Single level 
+
 ## Reading in data
 
 ```{r}
 data <- read_data_sav(rel_directory = "/data/", pattern = "data_full_lead.sav")
 data <- data[[2]]
+
 ```
+
+
 
 ## Rename data
 
@@ -521,4 +526,122 @@ readModels("Mplus/output/Step3_step_hard_3.out")
 ```
 
 ![Mplus Output File](Mplus/output/Step3_step_hard_3.pdf){width=90%}
+
+
+# Multilevel data 
+
+```{r}
+multidat <- read_data_sav(rel_directory = "/data/", pattern = "S_PMKNO_2022_MDW_LDG_data.sav") %>% .[[2]]
+
+# rename and recode negatively coded items
+multidat <- multidat %>% rename(MSELFE11 = MSELF6R,
+                                MSELFE12 = MSELF7R,
+                                MSELFE13 = MSELF8R,
+                                MSELFE14 = MSELF9R,
+                                MSELFE15 = MSELF10R,
+                                MSCC13 = MSCC11R,
+                                MSCC14 = MSCC12R,
+                                MLCOMM3 = MLCOMMa,
+                                MLCOMM4 = MLCOMMb,
+                                MLDEFF4 = MLDEFFa
+                                ) %>% 
+  mutate(MSELFE11 = MSELFE11*(-1) + 6,
+         MSELFE12 = MSELFE12*(-1) + 6,
+         MSELFE13 = MSELFE13*(-1) + 6,
+         MSELFE14 = MSELFE14*(-1) + 6,
+         MSELFE15 = MSELFE15*(-1) + 6,
+         MSCC13 = MSCC13*(-1) + 6,
+         MSCC14 = MSCC14*(-1) + 6,)
+
+```
+
+## Make composite data frame
+
+```{r}
+## Rename data
+names(multidat) <- gsub("(^\\D+)(\\d{1,2})", "\\1_\\2", names(multidat))
+
+## Select certain columns
+no_multidat <- multidat %>% select(-matches("\\d$"))
+multidat <- multidat %>% select(matches("\\d$")) %>% select(-matches("CHECK|MSELFE1_0|Q2"))
+
+
+comp_split <- multidat %>% remove_all_labels(.) %>%
+  dplyr::select(where(is.numeric))
+  
+comp_split <- comp_split %>%  
+  split.default(sub("_.*", "", names(comp_split)))
+
+comp <- purrr::map(comp_split, ~ multicon::composite(.x, nomiss = 0.8), data = .x)
+alph <- purrr::map(comp_split, ~ psych::alpha(.x), data = .x) %>%
+  purrr::map(~ .x$total)
+
+comp_df <- do.call("cbind", comp) %>% cbind(., no_multidat) %>% remove_all_labels(.)
+alph_df <- do.call("rbind", alph) %>% round(., 2)
+```
+
+## Reliabilities
+
+```{r reliabilities, include = T}
+# prolific 
+alph_df %>%
+DT::datatable(
+    extensions = 'Buttons', 
+    options = list(dom = 'Bfrtip', 
+                   buttons = c('excel', "csv"),
+                   pageLength = 20))
+```
+
+## Correlations
+
+```{r}
+# select only numeric 
+comp_df_mum <- comp_df[ , purrr::map_lgl(comp_df, is.numeric)]
+cor_tab <- corstars(comp_df_mum)
+cor_tab %>%
+  DT::datatable(
+    extensions = 'Buttons', 
+    options = list(dom = 'Bfrtip', 
+                   buttons = c('excel', "csv"),
+                   pageLength = 35,
+                  lengthMenu = c(20, 20, 20, 20)))
+
+```
+
+## ICC
+
+```{r}
+library(misty)
+comp_df <- transform(comp_df,id=as.numeric(factor(TEAMID)))
+multilevel.icc(comp_df$MLSSB, cluster = comp_df$id, type = 1, method = c("aov", "lme4", "nlme"), REML = TRUE,
+               check = TRUE)
+```
+
+## Single level LPA
+
+```{r}
+library(MplusAutomation)
+library(tidyLPA)
+
+data_LPA <- comp_df %>% select(MLSSB, MLYING, MMICRO, MBULLY, MLGSB, MLDEFF)
+LPA <- data_LPA %>% estimate_profiles(n_profiles = 3:8, models = 1, package = "mplus", 
+                      ANALYSIS = "starts = 200, 10;")  #%>%
+#compare_solutions() #for final model: starts = 7000, 200;
+
+LPA$model_1_class_3
+LPA$model_1_class_4
+LPA$model_1_class_5
+LPA$model_1_class_6
+LPA$model_1_class_7
+LPA$model_1_class_8
+```
+
+```{r}
+plot_profiles(LPA$model_1_class_3, to_center = F)
+```
+
+
+https://jyx.jyu.fi/bitstream/handle/123456789/60696/1/makikangas%20et%20alfinal%20draft.pdf
+
+Simulation studies conducted for different mixture models (i.e., LPA, growth mixture modeling, mixture regression modeling) suggest that to achieve a less biased and proper representation of the data, the variances across profiles should be freely estimated (Diallo, Morin, & Lu, 2016; Enders & Tofighi, 2008; Kim, Lamont et al., 2016; Peugh & Fan, 2013).
 
