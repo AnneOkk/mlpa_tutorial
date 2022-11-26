@@ -190,8 +190,6 @@ summary(fit1, fit.measures=TRUE)
 
 ## LPA
 
-I ran a non-multilevel LPA first, just to see whether any interesting patterns emerge. We can run multilevel analyses once we decided on a general framework.
-
 ```{r}
 library(tidyLPA)
 library(multicon)
@@ -352,41 +350,48 @@ LPA_hard$model_1_class_6
 
 ```{r}
 plot_profiles(LPA_overall$model_1_class_3, to_center = F)
-LPA_hard$model_1_class_3
+LPA_overall$model_1_class_3
+
+get_estimates(LPA_overall$model_1_class_3)
 ```
 ### 4 profiles
 
 ```{r}
 plot_profiles(LPA_overall$model_1_class_4, to_center = F)
-LPA_hard$model_1_class_4
+LPA_overall$model_1_class_4
+get_estimates(LPA_overall$model_1_class_4)
 ```
 
 ### 5 profiles
 
 ```{r}
 plot_profiles(LPA_overall$model_1_class_5, to_center = F)
-LPA_hard$model_1_class_5
+LPA_overall$model_1_class_5
+get_estimates(LPA_overall$model_1_class_5)
 ```
 
 ### 6 profiles
 
 ```{r}
 plot_profiles(LPA_overall$model_1_class_6, to_center = F)
-LPA_hard$model_1_class_6
+LPA_overall$model_1_class_6
+get_estimates(LPA_overall$model_1_class_6)
 ```
 
 ### 7 profiles
 
 ```{r}
 plot_profiles(LPA_overall$model_1_class_7, to_center = F)
-LPA_hard$model_1_class_7
+LPA_overall$model_1_class_7
+get_estimates(LPA_overall$model_1_class_7)
 ```
 
 ### 8 profiles
 
 ```{r}
 plot_profiles(LPA_overall$model_1_class_8, to_center = F)
-LPA_hard$model_1_class_8
+LPA_overall$model_1_class_8
+get_estimates(LPA_overall$model_1_class_8)
 ```
 
 ```{r}
@@ -407,3 +412,113 @@ gofglca(mglca3, mglca4, mglca5, mglca6)
 
 plot(mglca5)
 ```
+
+## BCH 
+
+```{r}
+LPA_df <- select_if(comp_df, is.numeric)
+```
+### Step 1
+ 
+```{r eval = T, echo = T, include = T}
+library(MplusAutomation)
+step1 <- mplusObject(TITLE = "BCH Step 1;",
+VARIABLE =
+"usevar = LEXCH LLEGTAC LPRESS LCOALT;
+CLASSES = c(4);
+AUXILIARY = LDEPR LAGE LEDU TENURE_O TEAMSIZE;",
+ANALYSIS  ="TYPE = MIXTURE; starts = 7000 200;
+LRTSTARTS = 0 0 500 200;",
+
+SAVEDATA = "FILE = file=2.dat; save=bch;
+Missflag= 999;",           
+OUTPUT =   "sampstat residual tech11 tech14",
+usevariables = colnames(LPA_df),
+rdata = LPA_df)
+     
+
+step1_fit_Pboth_4 <- mplusModeler(step1,
+                            dataout = "Mplus/Step1_step_hard_4.dat",
+                            modelout= "Mplus/Step1_step_hard_4.inp",
+                            check=TRUE, run = TRUE, hashfilename = FALSE)
+
+```
+
+### Step 2 - save data for 4 profile solution
+
+```{r include = T, echo = T}
+savedata_both <- as.data.frame(step1_fit_Pboth_4[["results"]]
+                                   [["savedata"]])
+
+```
+
+### Step 3 LDEPR as outcomne, with control variables included
+
+```{r echo = T, include = T}
+library(glue)
+step3  <- mplusObject(
+  TITLE = "BCH step 3", 
+  
+  VARIABLE = 
+ "missing are all (999);
+  classes = c(4);
+  usevar =  LDEPR LAGE LEDU TENURE_O TEAMSIZE
+ BCHW1 BCHW2 BCHW3 BCHW4;
+ training = BCHW1 BCHW2 BCHW3 BCHW4(bch);",
+  
+  ANALYSIS = 
+ "estimator = mlr; 
+  type = mixture; 
+  starts = 0;",
+  
+  MODEL =
+  glue(
+ " %OVERALL%
+ LDEPR ON LAGE LEDU TENURE_O TEAMSIZE; 
+ c ON LAGE LEDU TENURE_O TEAMSIZE;
+ 
+  %C#1%
+  [LDEPR](e1);    ! conditional distal mean 
+  LDEPR;          ! conditional distal variance (freely estimated)
+ 
+  %C#2%
+  [LDEPR](e2);    ! conditional distal mean 
+  LDEPR;          ! conditional distal variance (freely estimated)
+  
+  %C#3%
+  [LDEPR](e3);    ! conditional distal mean 
+  LDEPR;          ! conditional distal variance (freely estimated)
+
+  %C#4%
+  [LDEPR](e4);    ! conditional distal mean 
+  LDEPR;          ! conditional distal variance (freely estimated)"),
+ 
+  
+  MODELCONSTRAINT = 
+"New (d_e_12 d_e_13 d_e_14 d_e_23 d_e_24 d_e_34); 
+ d_e_12 = e1-e2;  
+ d_e_13 = e1-e3;
+ d_e_14 = e1-e4;
+ d_e_23 = e2-e3;
+ d_e_24 = e2-e4;
+ d_e_34 = e3-e4;",
+ OUTPUT =   "sampstat residual tech11 tech14;", 
+ usevariables = colnames(savedata_both),
+  rdata = savedata_both)
+
+step3_fit_errpre_both <- mplusModeler(step3,
+               dataout= "Mplus/output/Step3_step_hard_3.dat", 
+               modelout="Mplus/output/Step3_step_hard_3.inp", 
+               check=TRUE, run = TRUE, hashfilename = FALSE)
+
+step3_fit_errpre_both
+```
+
+## Results
+
+```{r}
+readModels("Mplus/output/Step3_step_hard_3.out")
+```
+
+![Mplus Output File](Mplus/output/Step3_step_hard_3.pdf){width=90%}
+
