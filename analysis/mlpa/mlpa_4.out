@@ -1,0 +1,778 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+04/26/2023   8:20 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  Multilevel LPA - covariates
+  DATA:
+  FILE = "mlpa/mlpa_4.dat";
+
+  VARIABLE:
+  NAMES = LCOALT LCONSUL LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP LPRESS LRAPER MBULLY
+       MCYN MEXH MLCOMM MLDEFF MLGSB MLSSB MLYING MMICRO MSCC MSELFE MSTRESS MWELLB
+       TEAMID MRESPNUM ProgrM DuratM MGENDER MAGE MEDU MTENUR_O MTENUR_T MTENUR_F
+       MCONTACT MCOVID_B MCOVID_S LRespNr ProgrL DuratL LGENDER LAGE LEDU TENURE_O
+       TENURE_T TENURE_F TEAMSIZE LOCATION LCOVID_B LCOVID_S id;
+   MISSING=.;
+   usevar = MLSSB MLGSB MMICRO MLCOMM LCOALT LCONSUL
+            LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP
+            LPRESS LRAPER LGENDER LAGE
+            MSTRESS MGENDER MAGE MTENUR_O;
+  classes = C(6);
+  cluster = id;
+  within = MLSSB MLGSB MMICRO MLCOMM MSTRESS MGENDER MAGE MTENUR_O;
+  between = LCOALT LCONSUL
+            LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP
+            LPRESS LRAPER LGENDER LAGE;
+  DEFINE:
+  CENTER MSTRESS (GROUPMEAN);
+  ANALYSIS:
+  estimator = mlr;
+  type = mixture twolevel;
+  starts = 0;
+  MODEL:
+  %WITHIN%
+  %OVERALL%
+  C ON MSTRESS MGENDER MAGE MTENUR_O;
+  %C#1%
+  [MLSSB@3.791 MLGSB@2.600 MMICRO@5.011 MLCOMM@3.196];
+  MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
+  %C#2%
+  [MLSSB@2.023 MLGSB@3.063 MMICRO@1.972 MLCOMM@3.601];
+  MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
+  %C#3%
+  [MLSSB@2.846 MLGSB@2.664 MMICRO@3.151 MLCOMM@3.310];
+  MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
+  %C#4%
+  [MLSSB@1.453 MLGSB@3.045 MMICRO@4.022 MLCOMM@3.631];
+  MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
+  %C#5%
+  [MLSSB@1.178 MLGSB@2.718 MMICRO@1.407 MLCOMM@2.909];
+  MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
+  %C#6%
+  [MLSSB@1.154 MLGSB@3.537 MMICRO@1.402 MLCOMM@4.079];
+  MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
+
+  %BETWEEN%
+  %OVERALL%
+  C ON LCOALT LCONSUL
+       LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP
+       LPRESS LRAPER LGENDER LAGE;
+  c#1;
+  OUTPUT:
+  TECH8;
+
+
+
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLSSB
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLGSB
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MMICRO
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLCOMM
+*** WARNING in MODEL command
+  At least one variable is uncorrelated with all other variables within class.
+  Check that this is what is intended.
+*** WARNING
+  One or more individual-level variables have no variation within a
+  cluster for the following clusters.
+
+     Variable   Cluster IDs with no within-cluster variation
+
+      MLSSB       175 11 13 196 57 236 241 248 281 78 330 331 364 101 368 394 426 32 458 478 37
+                  134 305 339 14 26 378 27 213 496 33 12
+      MLGSB       11 282 368 460 126 8 14
+      MMICRO      175 11 13 51 205 229 240 66 275 280 80 101 368 32 41 478 488 128 340 342 14
+                  25 378 383 389 233 17 36
+      MLCOMM      196 207 217 228 275 280 78 292 88 330 348 364 368 41 120 478 488 421 305 14
+                  509 12
+      MGENDER     158 9 168 177 11 51 52 187 189 205 206 208 209 215 57 219 61 228 229 236 62
+                  240 63 248 66 67 254 69 73 274 275 75 280 281 282 78 285 286 288 80 292 85 301
+                  302 307 88 314 328 330 331 348 357 358 364 101 368 369 374 376 379 381 104 388
+                  390 394 396 415 420 426 108 440 441 30 32 448 450 452 118 458 460 119 120 126
+                  474 127 478 489 492 146 501 147 504 512 515 421 256 259 37 269 271 131 134 135
+                  141 287 144 71 293 72 296 297 149 303 304 305 157 43 159 161 162 163 167 332
+                  173 334 337 340 345 346 347 349 352 353 23 355 362 15 184 373 26 91 380 383
+                  385 386 387 93 389 197 391 200 408 414 95 417 255 422 424 425 27 427 428 97
+                  435 438 442 29 444 445 56 102 449 213 103 454 105 218 220 463 465 466 468 58
+                  233 476 477 480 481 483 485 494 495 498 246 64 65 121 123 516 433 384 145 174
+                  260 192 412 139 370 419 198 130 70 122 171 164 170 507 226 399 401 404 92 473
+                  436 392 393
+      MAGE        248 280 329 364 426 487 303 352
+      MTENUR_O    196 217 241 254 290 328 418 32 452 460 501 269 276 131 197 498 500
+
+*** WARNING
+  Data set contains cases with missing on x-variables.
+  These cases were not included in the analysis.
+  Number of cases with missing on x-variables:  160
+   7 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+Multilevel LPA - covariates
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        1400
+
+Number of dependent variables                                    4
+Number of independent variables                                 16
+Number of continuous latent variables                            0
+Number of categorical latent variables                           1
+
+Observed dependent variables
+
+  Continuous
+   MLSSB       MLGSB       MMICRO      MLCOMM
+
+Observed independent variables
+   LCOALT      LCONSUL     LDEPR       LEXCH       LINAP       LINTEG
+   LLEGTAC     LPEAPP      LPRESS      LRAPER      LGENDER     LAGE
+   MSTRESS     MGENDER     MAGE        MTENUR_O
+
+Categorical latent variables
+   C
+
+Variables with special functions
+
+  Cluster variable      ID
+
+  Within variables
+   MLSSB       MLGSB       MMICRO      MLCOMM      MSTRESS     MGENDER
+   MAGE        MTENUR_O
+
+  Between variables
+   LCOALT      LCONSUL     LDEPR       LEXCH       LINAP       LINTEG
+   LLEGTAC     LPEAPP      LPRESS      LRAPER      LGENDER     LAGE
+
+  Centering (GROUPMEAN)
+   MSTRESS
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Optimization Specifications for the Quasi-Newton Algorithm for
+Continuous Outcomes
+  Maximum number of iterations                                 100
+  Convergence criterion                                  0.100D-05
+Optimization Specifications for the EM Algorithm
+  Maximum number of iterations                                 500
+  Convergence criteria
+    Loglikelihood change                                 0.100D-02
+    Relative loglikelihood change                        0.100D-05
+    Derivative                                           0.100D-02
+Optimization Specifications for the M step of the EM Algorithm for
+Categorical Latent variables
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+Optimization Specifications for the M step of the EM Algorithm for
+Censored, Binary or Ordered Categorical (Ordinal), Unordered
+Categorical (Nominal) and Count Outcomes
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+  Maximum value for logit thresholds                            15
+  Minimum value for logit thresholds                           -15
+  Minimum expected cell size for chi-square              0.100D-01
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+Integration Specifications
+  Type                                                    STANDARD
+  Number of integration points                                  15
+  Dimensions of numerical integration                            1
+  Adaptive quadrature                                           ON
+Cholesky                                                       OFF
+
+Input data file(s)
+  mlpa/mlpa_4.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             1
+     Number of y missing data patterns           1
+     Number of u missing data patterns           0
+     Number of clusters                        454
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT FOR Y
+
+
+           Covariance Coverage
+              MLSSB         MLGSB         MMICRO        MLCOMM        MSTRESS
+              ________      ________      ________      ________      ________
+ MLSSB          1.000
+ MLGSB          1.000         1.000
+ MMICRO         1.000         1.000         1.000
+ MLCOMM         1.000         1.000         1.000         1.000
+ MSTRESS        1.000         1.000         1.000         1.000         1.000
+ MGENDER        1.000         1.000         1.000         1.000         1.000
+ MAGE           1.000         1.000         1.000         1.000         1.000
+ MTENUR_O       1.000         1.000         1.000         1.000         1.000
+ LCOALT         1.000         1.000         1.000         1.000         1.000
+ LCONSUL        1.000         1.000         1.000         1.000         1.000
+ LDEPR          1.000         1.000         1.000         1.000         1.000
+ LEXCH          1.000         1.000         1.000         1.000         1.000
+ LINAP          1.000         1.000         1.000         1.000         1.000
+ LINTEG         1.000         1.000         1.000         1.000         1.000
+ LLEGTAC        1.000         1.000         1.000         1.000         1.000
+ LPEAPP         1.000         1.000         1.000         1.000         1.000
+ LPRESS         1.000         1.000         1.000         1.000         1.000
+ LRAPER         1.000         1.000         1.000         1.000         1.000
+ LGENDER        1.000         1.000         1.000         1.000         1.000
+ LAGE           1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              MGENDER       MAGE          MTENUR_O      LCOALT        LCONSUL
+              ________      ________      ________      ________      ________
+ MGENDER        1.000
+ MAGE           1.000         1.000
+ MTENUR_O       1.000         1.000         1.000
+ LCOALT         1.000         1.000         1.000         1.000
+ LCONSUL        1.000         1.000         1.000         1.000         1.000
+ LDEPR          1.000         1.000         1.000         1.000         1.000
+ LEXCH          1.000         1.000         1.000         1.000         1.000
+ LINAP          1.000         1.000         1.000         1.000         1.000
+ LINTEG         1.000         1.000         1.000         1.000         1.000
+ LLEGTAC        1.000         1.000         1.000         1.000         1.000
+ LPEAPP         1.000         1.000         1.000         1.000         1.000
+ LPRESS         1.000         1.000         1.000         1.000         1.000
+ LRAPER         1.000         1.000         1.000         1.000         1.000
+ LGENDER        1.000         1.000         1.000         1.000         1.000
+ LAGE           1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              LDEPR         LEXCH         LINAP         LINTEG        LLEGTAC
+              ________      ________      ________      ________      ________
+ LDEPR          1.000
+ LEXCH          1.000         1.000
+ LINAP          1.000         1.000         1.000
+ LINTEG         1.000         1.000         1.000         1.000
+ LLEGTAC        1.000         1.000         1.000         1.000         1.000
+ LPEAPP         1.000         1.000         1.000         1.000         1.000
+ LPRESS         1.000         1.000         1.000         1.000         1.000
+ LRAPER         1.000         1.000         1.000         1.000         1.000
+ LGENDER        1.000         1.000         1.000         1.000         1.000
+ LAGE           1.000         1.000         1.000         1.000         1.000
+
+
+           Covariance Coverage
+              LPEAPP        LPRESS        LRAPER        LGENDER       LAGE
+              ________      ________      ________      ________      ________
+ LPEAPP         1.000
+ LPRESS         1.000         1.000
+ LRAPER         1.000         1.000         1.000
+ LGENDER        1.000         1.000         1.000         1.000
+ LAGE           1.000         1.000         1.000         1.000         1.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     MLSSB                 1.504       1.674       1.000   35.21%       1.000      1.111      1.222
+            1400.000       0.417       2.876       4.889    0.07%       1.444      2.000
+     MLGSB                 3.277      -0.241       1.000    1.07%       2.667      3.111      3.333
+            1400.000       0.678       0.089       5.000    2.50%       3.444      3.889
+     MMICRO                1.854       1.730       1.000   31.21%       1.000      1.286      1.429
+            1400.000       1.133       3.258       7.000    0.07%       1.857      2.429
+     MLCOMM                3.793      -0.504       1.000    0.07%       3.250      3.750      4.000
+            1400.000       0.476      -0.118       5.000    3.79%       4.000      4.500
+     MSTRESS               0.000       0.254      -1.875    0.07%      -0.625     -0.167      0.000
+            1400.000       0.499      -0.015       2.625    0.07%       0.125      0.611
+     MGENDER               1.629      -0.427       1.000   37.50%       1.000      2.000      2.000
+            1400.000       0.242      -1.536       3.000    0.43%       2.000      2.000
+     MAGE                 34.521       0.739      15.000    0.07%      23.000     27.000     30.000
+            1400.000     161.255      -0.690      70.000    0.07%      34.000     48.000
+     MTENUR_O              6.047       2.383       0.000    2.29%       1.000      2.000      3.000
+            1400.000      65.295       5.919      45.000    0.21%       4.000      9.000
+     LCOALT                1.741       1.205       1.000   31.50%       1.000      1.250      1.500
+             454.000       0.653       0.960       5.000    0.22%       1.750      2.250
+     LCONSUL               4.001      -0.435       2.000    0.44%       3.500      4.000      4.000
+             454.000       0.353       0.371       5.000    8.59%       4.000      4.500
+     LDEPR                 1.431       2.612       1.000   48.46%       1.000      1.000      1.333
+             454.000       0.454       8.181       5.000    0.66%       1.333      1.667
+     LEXCH                 2.160       0.618       1.000   20.26%       1.000      1.750      2.000
+             454.000       0.971      -0.437       5.000    0.88%       2.250      3.000
+     LINAP                 3.767      -0.273       1.750    0.22%       3.250      3.750      3.750
+             454.000       0.306       0.430       5.000    2.20%       4.000      4.250
+     LINTEG                3.617      -0.300       1.000    0.22%       3.000      3.500      3.750
+             454.000       0.518       0.117       5.000    5.07%       3.750      4.250
+     LLEGTAC               2.219       0.761       1.000   16.74%       1.250      1.750      2.000
+             454.000       1.047      -0.161       5.000    1.98%       2.250      3.000
+     LPEAPP                2.133       0.679       1.000   14.98%       1.250      1.750      2.000
+             454.000       0.817      -0.307       5.000    0.22%       2.250      3.000
+     LPRESS                2.996      -0.216       1.000    1.10%       2.500      2.750      3.000
+             454.000       0.569      -0.075       5.000    0.22%       3.250      3.750
+     LRAPER                3.863      -0.042       2.000    0.22%       3.500      3.750      4.000
+             454.000       0.283       0.100       5.000    4.63%       4.000      4.250
+     LGENDER               1.487       0.153       1.000   51.76%       1.000      1.000      1.000
+             454.000       0.259      -1.724       3.000    0.44%       2.000      2.000
+     LAGE                 41.029       0.108      19.000    0.22%      28.000     35.000     40.000
+             454.000     154.292      -1.292      66.000    0.22%      45.000     54.000
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       86
+
+Loglikelihood
+
+          H0 Value                       -5521.672
+          H0 Scaling Correction Factor      1.1669
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   11215.344
+          Bayesian (BIC)                 11666.347
+          Sample-Size Adjusted BIC       11393.157
+            (n* = (n + 2) / 24)
+
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON ESTIMATED POSTERIOR PROBABILITIES
+
+    Latent
+   Classes
+
+       1         29.57111          0.02112
+       2        267.86044          0.19133
+       3         93.70513          0.06693
+       4         78.26793          0.05591
+       5        109.03218          0.07788
+       6        821.56322          0.58683
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON THEIR MOST LIKELY LATENT CLASS MEMBERSHIP
+
+Class Counts and Proportions
+
+    Latent
+   Classes
+
+       1               29          0.02071
+       2              272          0.19429
+       3               90          0.06429
+       4               81          0.05786
+       5               88          0.06286
+       6              840          0.60000
+
+
+CLASSIFICATION QUALITY
+
+     Entropy                         0.875
+
+
+Classification Probabilities for the Most Likely Latent Class Membership (Column)
+by Latent Class (Row)
+
+           1        2        3        4        5        6
+
+    1   0.959    0.000    0.041    0.000    0.000    0.000
+    2   0.000    0.904    0.018    0.016    0.006    0.056
+    3   0.007    0.101    0.889    0.003    0.000    0.000
+    4   0.000    0.045    0.007    0.900    0.001    0.046
+    5   0.000    0.031    0.000    0.007    0.621    0.340
+    6   0.000    0.016    0.000    0.006    0.023    0.955
+
+
+Logits for the Classification Probabilities for the Most Likely Latent Class Membership (Column)
+by Latent Class (Row)
+
+              1        2        3        4        5        6
+
+    1     13.774    0.000   10.616    0.000    0.000    0.000
+    2    -10.929    2.785   -1.113   -1.259   -2.174    0.000
+    3      8.820   11.526   13.698    7.962    0.000    0.000
+    4    -10.745   -0.034   -1.845    2.965   -3.622    0.000
+    5    -12.738   -2.384  -12.738   -3.827    0.601    0.000
+    6    -13.769   -4.062  -13.769   -5.011   -3.747    0.000
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+Latent Class 1
+
+ Means
+    MLSSB              3.791      0.000    999.000    999.000
+    MLGSB              2.600      0.000    999.000    999.000
+    MMICRO             5.011      0.000    999.000    999.000
+    MLCOMM             3.196      0.000    999.000    999.000
+
+ Variances
+    MLSSB              0.060      0.000    999.000    999.000
+    MLGSB              0.575      0.000    999.000    999.000
+    MMICRO             0.420      0.000    999.000    999.000
+    MLCOMM             0.343      0.000    999.000    999.000
+
+Latent Class 2
+
+ Means
+    MLSSB              2.023      0.000    999.000    999.000
+    MLGSB              3.063      0.000    999.000    999.000
+    MMICRO             1.972      0.000    999.000    999.000
+    MLCOMM             3.601      0.000    999.000    999.000
+
+ Variances
+    MLSSB              0.060      0.000    999.000    999.000
+    MLGSB              0.575      0.000    999.000    999.000
+    MMICRO             0.420      0.000    999.000    999.000
+    MLCOMM             0.343      0.000    999.000    999.000
+
+Latent Class 3
+
+ Means
+    MLSSB              2.846      0.000    999.000    999.000
+    MLGSB              2.664      0.000    999.000    999.000
+    MMICRO             3.151      0.000    999.000    999.000
+    MLCOMM             3.310      0.000    999.000    999.000
+
+ Variances
+    MLSSB              0.060      0.000    999.000    999.000
+    MLGSB              0.575      0.000    999.000    999.000
+    MMICRO             0.420      0.000    999.000    999.000
+    MLCOMM             0.343      0.000    999.000    999.000
+
+Latent Class 4
+
+ Means
+    MLSSB              1.453      0.000    999.000    999.000
+    MLGSB              3.045      0.000    999.000    999.000
+    MMICRO             4.022      0.000    999.000    999.000
+    MLCOMM             3.631      0.000    999.000    999.000
+
+ Variances
+    MLSSB              0.060      0.000    999.000    999.000
+    MLGSB              0.575      0.000    999.000    999.000
+    MMICRO             0.420      0.000    999.000    999.000
+    MLCOMM             0.343      0.000    999.000    999.000
+
+Latent Class 5
+
+ Means
+    MLSSB              1.178      0.000    999.000    999.000
+    MLGSB              2.718      0.000    999.000    999.000
+    MMICRO             1.407      0.000    999.000    999.000
+    MLCOMM             2.909      0.000    999.000    999.000
+
+ Variances
+    MLSSB              0.060      0.000    999.000    999.000
+    MLGSB              0.575      0.000    999.000    999.000
+    MMICRO             0.420      0.000    999.000    999.000
+    MLCOMM             0.343      0.000    999.000    999.000
+
+Latent Class 6
+
+ Means
+    MLSSB              1.154      0.000    999.000    999.000
+    MLGSB              3.537      0.000    999.000    999.000
+    MMICRO             1.402      0.000    999.000    999.000
+    MLCOMM             4.079      0.000    999.000    999.000
+
+ Variances
+    MLSSB              0.060      0.000    999.000    999.000
+    MLGSB              0.575      0.000    999.000    999.000
+    MMICRO             0.420      0.000    999.000    999.000
+    MLCOMM             0.343      0.000    999.000    999.000
+
+Between Level
+
+Categorical Latent Variables
+
+Within Level
+
+ C#1        ON
+    MSTRESS            1.119      0.264      4.244      0.000
+    MGENDER           -0.397      0.419     -0.947      0.344
+    MAGE              -0.081      0.047     -1.743      0.081
+    MTENUR_O           0.044      0.049      0.907      0.365
+
+ C#2        ON
+    MSTRESS            0.156      0.115      1.357      0.175
+    MGENDER           -0.271      0.165     -1.639      0.101
+    MAGE              -0.011      0.008     -1.302      0.193
+    MTENUR_O           0.019      0.012      1.674      0.094
+
+ C#3        ON
+    MSTRESS            0.304      0.182      1.673      0.094
+    MGENDER           -0.255      0.253     -1.007      0.314
+    MAGE              -0.012      0.017     -0.735      0.463
+    MTENUR_O          -0.009      0.016     -0.528      0.597
+
+ C#4        ON
+    MSTRESS            0.761      0.185      4.105      0.000
+    MGENDER           -0.377      0.291     -1.293      0.196
+    MAGE               0.005      0.013      0.341      0.733
+    MTENUR_O           0.003      0.022      0.152      0.879
+
+ C#5        ON
+    MSTRESS           -0.224      0.202     -1.106      0.269
+    MGENDER            0.093      0.379      0.245      0.806
+    MAGE               0.037      0.016      2.227      0.026
+    MTENUR_O          -0.014      0.025     -0.541      0.589
+
+ Intercepts
+    C#1               -1.007      2.859     -0.352      0.725
+    C#2                0.221      1.167      0.189      0.850
+    C#3               -1.164      1.695     -0.687      0.492
+    C#4               -0.922      2.029     -0.455      0.649
+    C#5               -2.829      2.831     -0.999      0.318
+
+Between Level
+
+ C#1        ON
+    LCOALT            -0.158      0.390     -0.406      0.685
+    LCONSUL           -0.221      0.366     -0.604      0.546
+    LDEPR              0.100      0.360      0.278      0.781
+    LEXCH              0.188      0.355      0.530      0.596
+    LINAP             -0.195      0.419     -0.466      0.641
+    LINTEG             0.184      0.392      0.470      0.639
+    LLEGTAC           -0.327      0.315     -1.037      0.300
+    LPEAPP             0.254      0.330      0.770      0.441
+    LPRESS             0.356      0.351      1.013      0.311
+    LRAPER            -0.052      0.528     -0.098      0.922
+    LGENDER            0.140      0.406      0.346      0.730
+    LAGE              -0.002      0.018     -0.101      0.919
+
+ C#2        ON
+    LCOALT            -0.007      0.149     -0.044      0.965
+    LCONSUL           -0.221      0.176     -1.252      0.211
+    LDEPR              0.017      0.149      0.113      0.910
+    LEXCH              0.004      0.142      0.026      0.979
+    LINAP             -0.111      0.192     -0.579      0.562
+    LINTEG             0.145      0.147      0.984      0.325
+    LLEGTAC            0.134      0.113      1.184      0.236
+    LPEAPP            -0.091      0.151     -0.603      0.546
+    LPRESS            -0.082      0.152     -0.539      0.590
+    LRAPER             0.129      0.217      0.593      0.553
+    LGENDER            0.063      0.208      0.301      0.763
+    LAGE              -0.008      0.008     -1.024      0.306
+
+ C#3        ON
+    LCOALT             0.056      0.188      0.297      0.767
+    LCONSUL           -0.159      0.285     -0.560      0.576
+    LDEPR              0.124      0.191      0.647      0.518
+    LEXCH             -0.245      0.181     -1.351      0.177
+    LINAP             -0.010      0.267     -0.038      0.970
+    LINTEG            -0.142      0.213     -0.666      0.506
+    LLEGTAC            0.086      0.138      0.619      0.536
+    LPEAPP             0.272      0.182      1.495      0.135
+    LPRESS             0.021      0.222      0.096      0.923
+    LRAPER             0.415      0.269      1.542      0.123
+    LGENDER           -0.122      0.251     -0.486      0.627
+    LAGE              -0.025      0.013     -1.875      0.061
+
+ C#4        ON
+    LCOALT             0.092      0.235      0.392      0.695
+    LCONSUL           -0.463      0.306     -1.510      0.131
+    LDEPR             -0.317      0.280     -1.131      0.258
+    LEXCH              0.308      0.232      1.330      0.183
+    LINAP             -0.288      0.303     -0.950      0.342
+    LINTEG            -0.224      0.252     -0.889      0.374
+    LLEGTAC            0.078      0.179      0.433      0.665
+    LPEAPP            -0.169      0.246     -0.685      0.493
+    LPRESS             0.324      0.209      1.550      0.121
+    LRAPER             0.287      0.299      0.961      0.337
+    LGENDER            0.162      0.289      0.560      0.576
+    LAGE               0.001      0.014      0.037      0.970
+
+ C#5        ON
+    LCOALT             0.090      0.301      0.300      0.764
+    LCONSUL            0.089      0.386      0.230      0.818
+    LDEPR              0.544      0.268      2.027      0.043
+    LEXCH             -0.799      0.492     -1.623      0.105
+    LINAP              0.417      0.521      0.800      0.424
+    LINTEG             0.402      0.304      1.322      0.186
+    LLEGTAC            0.033      0.214      0.156      0.876
+    LPEAPP             0.067      0.263      0.256      0.798
+    LPRESS             0.009      0.291      0.032      0.975
+    LRAPER            -0.598      0.366     -1.635      0.102
+    LGENDER           -0.824      0.429     -1.921      0.055
+    LAGE              -0.007      0.018     -0.403      0.687
+
+ Residual Variances
+    C#1                0.098      1.164      0.084      0.933
+
+
+LOGISTIC REGRESSION ODDS RATIO RESULTS
+
+                                         (Est. - 1) Two-Tailed
+                    Estimate       S.E.     / S.E.    P-Value
+
+Categorical Latent Variables
+
+Within Level
+
+ C#1      ON
+    MSTRESS            3.062      0.807      2.554      0.011
+    MGENDER            0.673      0.282     -1.162      0.245
+    MAGE               0.922      0.043     -1.816      0.069
+    MTENUR_O           1.045      0.051      0.887      0.375
+
+ C#2      ON
+    MSTRESS            1.169      0.135      1.257      0.209
+    MGENDER            0.763      0.126     -1.883      0.060
+    MAGE               0.989      0.008     -1.310      0.190
+    MTENUR_O           1.020      0.012      1.658      0.097
+
+ C#3      ON
+    MSTRESS            1.356      0.247      1.443      0.149
+    MGENDER            0.775      0.196     -1.147      0.251
+    MAGE               0.988      0.016     -0.739      0.460
+    MTENUR_O           0.991      0.016     -0.530      0.596
+
+ C#4      ON
+    MSTRESS            2.140      0.397      2.874      0.004
+    MGENDER            0.686      0.200     -1.570      0.116
+    MAGE               1.005      0.013      0.341      0.733
+    MTENUR_O           1.003      0.022      0.151      0.880
+
+ C#5      ON
+    MSTRESS            0.800      0.162     -1.239      0.215
+    MGENDER            1.097      0.416      0.234      0.815
+    MAGE               1.037      0.017      2.187      0.029
+    MTENUR_O           0.986      0.025     -0.545      0.586
+
+Between Level
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.109E-06
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 8 OUTPUT
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.62114566D+04    0.0000000    0.0000000  EM
+              2 -0.55933187D+04  618.1378932    0.0995158  EM
+              3 -0.55344866D+04   58.8320433    0.0105183  EM
+              4 -0.55276937D+04    6.7929002    0.0012274  EM
+              5 -0.55260376D+04    1.6561221    0.0002996  EM
+              6 -0.55255712D+04    0.4664387    0.0000844  EM
+              7 -0.55254014D+04    0.1697484    0.0000307  EM
+              8 -0.55253195D+04    0.0819463    0.0000148  EM
+              9 -0.55252713D+04    0.0482042    0.0000087  EM
+             10 -0.55252376D+04    0.0336424    0.0000061  EM
+             11 -0.55252106D+04    0.0269994    0.0000049  EM
+             12 -0.55251868D+04    0.0238297    0.0000043  EM
+             13 -0.55251646D+04    0.0222419    0.0000040  EM
+             14 -0.55251432D+04    0.0213969    0.0000039  EM
+             15 -0.55251223D+04    0.0209104    0.0000038  EM
+             16 -0.55251017D+04    0.0206014    0.0000037  EM
+             17 -0.55250813D+04    0.0203827    0.0000037  EM
+             18 -0.55250611D+04    0.0202109    0.0000037  EM
+             19 -0.55250410D+04    0.0200642    0.0000036  EM
+             20 -0.55250211D+04    0.0199313    0.0000036  EM
+             21 -0.55250013D+04    0.0198062    0.0000036  EM
+             22 -0.55249816D+04    0.0196857    0.0000036  EM
+             23 -0.55249620D+04    0.0195680    0.0000035  EM
+             24 -0.55249426D+04    0.0194522    0.0000035  EM
+             25 -0.55249232D+04    0.0193377    0.0000035  EM
+             26 -0.55249040D+04    0.0192243    0.0000035  EM
+             27 -0.55248849D+04    0.0191117    0.0000035  EM
+             28 -0.55248659D+04    0.0189999    0.0000034  EM
+             29 -0.55248470D+04    0.0188887    0.0000034  EM
+             30 -0.55248282D+04    0.0187783    0.0000034  EM
+             31 -0.55248096D+04    0.0186684    0.0000034  EM
+             32 -0.55247910D+04    0.0185592    0.0000034  EM
+             33 -0.55247725D+04    0.0184506    0.0000033  EM
+             34 -0.55247542D+04    0.0183427    0.0000033  EM
+             35 -0.55247360D+04    0.0182353    0.0000033  EM
+             36 -0.55247178D+04    0.0181285    0.0000033  EM
+             37 -0.55246998D+04    0.0180223    0.0000033  EM
+             38 -0.55246819D+04    0.0179167    0.0000032  EM
+             39 -0.55246641D+04    0.0178117    0.0000032  EM
+             40 -0.55246464D+04    0.0177073    0.0000032  EM
+             41 -0.55246288D+04    0.0176035    0.0000032  EM
+             42 -0.55246113D+04    0.0175003    0.0000032  EM
+             43 -0.55245939D+04    0.0173976    0.0000031  EM
+             44 -0.55245766D+04    0.0172955    0.0000031  EM
+             45 -0.55245594D+04    0.0171940    0.0000031  EM
+             46 -0.55245423D+04    0.0170930    0.0000031  EM
+             47 -0.55245253D+04    0.0169926    0.0000031  EM
+             48 -0.55245084D+04    0.0168928    0.0000031  EM
+             49 -0.55244916D+04    0.0167936    0.0000030  EM
+             50 -0.55244749D+04    0.0166949    0.0000030  EM
+             51 -0.55244583D+04    0.0165967    0.0000030  EM
+             52 -0.55244418D+04    0.0164991    0.0000030  EM
+             53 -0.55244254D+04    0.0164021    0.0000030  EM
+             54 -0.55244091D+04    0.0163056    0.0000030  EM
+             55 -0.55243929D+04    0.0162097    0.0000029  EM
+             56 -0.55243768D+04    0.0161143    0.0000029  EM
+             57 -0.55243608D+04    0.0160194    0.0000029  EM
+             58 -0.55243448D+04    0.0159251    0.0000029  EM
+             59 -0.55243290D+04    0.0158313    0.0000029  EM
+             60 -0.55243133D+04    0.0157380    0.0000028  EM
+             61 -0.55242976D+04    0.0156453    0.0000028  EM
+             62 -0.55230715D+04    1.2261229    0.0002220  QN
+             63 -0.55226408D+04    0.4307267    0.0000780  EM
+             64 -0.55225660D+04    0.0747482    0.0000135  EM
+             65 -0.55225109D+04    0.0551590    0.0000100  EM
+             66 -0.55224602D+04    0.0506657    0.0000092  EM
+             67 -0.55224131D+04    0.0471472    0.0000085  EM
+             68 -0.55223691D+04    0.0439604    0.0000080  EM
+             69 -0.55223281D+04    0.0410076    0.0000074  EM
+             70 -0.55222898D+04    0.0382678    0.0000069  EM
+             71 -0.55222541D+04    0.0357157    0.0000065  EM
+             72 -0.55222208D+04    0.0333314    0.0000060  EM
+             73 -0.55221897D+04    0.0311257    0.0000056  EM
+             74 -0.55221606D+04    0.0290666    0.0000053  EM
+             75 -0.55221334D+04    0.0271460    0.0000049  EM
+             76 -0.55216784D+04    0.4550504    0.0000824  QN
+             77 -0.55216722D+04    0.0062372    0.0000011  EM
+             78 -0.55216719D+04    0.0003010    0.0000001  EM
+
+
+     Beginning Time:  08:20:36
+        Ending Time:  08:20:45
+       Elapsed Time:  00:00:09
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen

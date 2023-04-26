@@ -1,0 +1,85 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+04/20/2023   8:08 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  model04_parametric_mlca
+  DATA:
+  FILE = "mlpa/model04_parametricwithfactor.dat";
+
+  VARIABLE:
+  NAMES = LCOALT LCONSUL LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP LPRESS LRAPER MBULLY
+       MCYN MEXH MLCOMM MLDEFF MLGSB MLSSB MLYING MMICRO MSCC MSELFE MSTRESS MWELLB
+       TEAMID MRESPNUM ProgrM DuratM MGENDER MAGE MEDU MTENUR_O MTENUR_T MTENUR_F
+       MCONTACT MCOVID_B MCOVID_S LRespNr ProgrL DuratL LGENDER LAGE LEDU TENURE_O
+       TENURE_T TENURE_F TEAMSIZE LOCATION LCOVID_B LCOVID_S TEAMID_1 id;
+   MISSING=.;
+   usevar = MLSSB MLGSB MMICRO MLCOMM;
+  classes = c(6);
+  cluster = id;
+  ANALYSIS:
+  estimator = mlr;
+  type = mixture twolevel;
+  INTEGRATION=MONTECARLO;
+  starts = 20 10;
+  processors = 10;
+  MODEL:
+  %WITHIN%
+  %OVERALL%
+  %BETWEEN%
+  %OVERALL%
+  FU by MLSSB MLGSB MMICRO MLCOMM;
+  [FU@0];
+  FU WITH C#1 C#2 C#3 C#4 C#5;
+  C#1;
+  C#2;
+  C#3;
+  C#4;
+  C#5;
+  C#1 WITH C#2;
+  C#3 WITH C#1 C#2;
+  C#4 WITH C#1 C#2 C#3;
+  C#5 WITH C#1 C#2 C#3 C#4;
+  %C#1%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#2%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#3%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#4%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#5%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#6%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  OUTPUT:
+  TECH8;
+  PLOT:
+  type = plot3;
+  series = MLSSB MLGSB MMICRO MLCOMM(*);
+
+
+
+*** WARNING
+  One or more individual-level variables have no variation within a
+  cluster for the following clusters.
+
+     Variable   Cluster IDs with no within-cluster variation
+
+      MLSSB       175 11 13 196 57 236 241 244 248 252 281 78 320 330 331 364 365 101 368 394
+                  426 32 458 478 37 134 305 321 339 14 26 378 27 213 464 496 33 12
+      MLGSB       11 282 24 365 368 460 469 126 8 14
+      MMICRO      175 11 13 51 205 229 240 66 275 280 80 101 368 32 41 478 488 128 340 342 14
+                  25 378 383 389 233 17 36
+      MLCOMM      178 196 207 55 217 228 275 280 78 292 88 330 348 364 368 41 120 478 488 305
+                  14 83 509 12
+
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+model04_parametric_mlca
+

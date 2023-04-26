@@ -1,0 +1,40 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+04/26/2023   9:05 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  C3_mlpa_enum
+  DATA:
+  FILE = "enum_mplus/c_3_mlpa_enum.dat";
+
+  VARIABLE:
+  NAMES = LCOALT LCONSUL LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP LPRESS LRAPER MBULLY
+       MCYN MEXH MLCOMM MLDEFF MLGSB MLSSB MLYING MMICRO MSCC MSELFE MSTRESS MWELLB
+       TEAMID MRESPNUM ProgrM DuratM MGENDER MAGE MEDU MTENUR_O MTENUR_T MTENUR_F
+       MCONTACT MCOVID_B MCOVID_S LRespNr ProgrL DuratL LGENDER LAGE LEDU TENURE_O
+       TENURE_T TENURE_F TEAMSIZE LOCATION LCOVID_B LCOVID_S id;
+   MISSING=.;
+   usevar = MMICRO MLCOMM;
+  classes = c(3);
+  ANALYSIS:
+  estimator = mlr;
+  type = mixture;
+  starts = 500 100;
+  PLOT:
+  type = plot3;
+  series = MMICRO MLCOMM(*);
+
+
+
+*** WARNING in MODEL command
+  All variables are uncorrelated with all other variables within class.
+  Check that this is what is intended.
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+C3_mlpa_enum
+

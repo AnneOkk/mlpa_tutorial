@@ -1,0 +1,5297 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+04/20/2023  11:02 AM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  model03_non_parametric_mlca
+  DATA:
+  FILE = "mlpa/model03_nonparametric.dat";
+
+  VARIABLE:
+  NAMES = LCOALT LCONSUL LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP LPRESS LRAPER MBULLY
+       MCYN MEXH MLCOMM MLDEFF MLGSB MLSSB MLYING MMICRO MSCC MSELFE MSTRESS MWELLB
+       TEAMID MRESPNUM ProgrM DuratM MGENDER MAGE MEDU MTENUR_O MTENUR_T MTENUR_F
+       MCONTACT MCOVID_B MCOVID_S LRespNr ProgrL DuratL LGENDER LAGE LEDU TENURE_O
+       TENURE_T TENURE_F TEAMSIZE LOCATION LCOVID_B LCOVID_S TEAMID_1 id;
+   MISSING=.;
+   usevar = MLSSB MLGSB MMICRO MLCOMM;
+  classes = CB(2) c(6);
+  cluster = id; ! level 2 units are schools
+  within = MLSSB MLGSB MMICRO MLCOMM;
+  between = CB;
+  ANALYSIS:
+  estimator = mlr;
+  type = mixture twolevel;
+  starts = 20 10;
+  processors = 10;
+  MODEL:
+  %WITHIN%
+  %OVERALL%
+  %BETWEEN%
+  %OVERALL%
+  C on CB;
+  MODEL C:
+  %WITHIN%
+  %C#1%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#2%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#3%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#4%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#5%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  %C#6%
+  [MLSSB MLGSB MMICRO MLCOMM];
+  OUTPUT:
+  TECH8;
+  PLOT:
+  type = plot3;
+  series = MLSSB MLGSB MMICRO MLCOMM(*);
+
+
+
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLSSB
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLGSB
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MMICRO
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLCOMM
+*** WARNING in MODEL command
+  At least one variable is uncorrelated with all other variables within class.
+  Check that this is what is intended.
+*** WARNING
+  One or more individual-level variables have no variation within a
+  cluster for the following clusters.
+
+     Variable   Cluster IDs with no within-cluster variation
+
+      MLSSB       175 11 13 196 57 236 241 244 248 252 281 78 320 330 331 364 365 101 368 394
+                  426 32 458 478 37 134 305 321 339 14 26 378 27 213 464 496 33 12
+      MLGSB       11 282 24 365 368 460 469 126 8 14
+      MMICRO      175 11 13 51 205 229 240 66 275 280 80 101 368 32 41 478 488 128 340 342 14
+                  25 378 383 389 233 17 36
+      MLCOMM      178 196 207 55 217 228 275 280 78 292 88 330 348 364 368 41 120 478 488 305
+                  14 83 509 12
+
+   6 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+model03_non_parametric_mlca
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                        1560
+
+Number of dependent variables                                    4
+Number of independent variables                                  0
+Number of continuous latent variables                            0
+Number of categorical latent variables                           2
+
+Observed dependent variables
+
+  Continuous
+   MLSSB       MLGSB       MMICRO      MLCOMM
+
+Categorical latent variables
+   CB          C
+
+Variables with special functions
+
+  Cluster variable      ID
+
+  Within variables
+   MLSSB       MLGSB       MMICRO      MLCOMM
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Optimization Specifications for the Quasi-Newton Algorithm for
+Continuous Outcomes
+  Maximum number of iterations                                 100
+  Convergence criterion                                  0.100D-05
+Optimization Specifications for the EM Algorithm
+  Maximum number of iterations                                 500
+  Convergence criteria
+    Loglikelihood change                                 0.100D-02
+    Relative loglikelihood change                        0.100D-05
+    Derivative                                           0.100D-02
+Optimization Specifications for the M step of the EM Algorithm for
+Categorical Latent variables
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+Optimization Specifications for the M step of the EM Algorithm for
+Censored, Binary or Ordered Categorical (Ordinal), Unordered
+Categorical (Nominal) and Count Outcomes
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-02
+  Basis for M step termination                           ITERATION
+  Maximum value for logit thresholds                            15
+  Minimum value for logit thresholds                           -15
+  Minimum expected cell size for chi-square              0.100D-01
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+Integration Specifications
+  Type                                                    STANDARD
+  Number of integration points                                  15
+  Dimensions of numerical integration                            0
+  Adaptive quadrature                                           ON
+Random Starts Specifications
+  Number of initial stage random starts                         20
+  Number of final stage optimizations                           10
+  Number of initial stage iterations                            10
+  Initial stage convergence criterion                    0.100D+01
+  Random starts scale                                    0.500D+01
+  Random seed for generating random starts                       0
+Parameterization                                             LOGIT
+Cholesky                                                       OFF
+
+Input data file(s)
+  mlpa/model03_nonparametric.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             2
+     Number of y missing data patterns           2
+     Number of u missing data patterns           0
+     Number of clusters                        519
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT FOR Y
+
+
+           Covariance Coverage
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          1.000
+ MLGSB          1.000         1.000
+ MMICRO         1.000         1.000         1.000
+ MLCOMM         0.999         0.999         0.999         0.999
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     MLSSB                 1.517       1.738       1.000   34.62%       1.000      1.111      1.222
+            1560.000       0.443       3.173       5.000    0.06%       1.444      2.000
+     MLGSB                 3.272      -0.242       1.000    1.15%       2.667      3.111      3.222
+            1560.000       0.688       0.123       5.000    2.56%       3.444      3.889
+     MMICRO                1.857       1.766       1.000   31.54%       1.000      1.286      1.429
+            1560.000       1.174       3.322       7.000    0.06%       1.714      2.429
+     MLCOMM                3.796      -0.546       1.000    0.13%       3.250      3.750      4.000
+            1559.000       0.487       0.000       5.000    3.91%       4.000      4.500
+
+RANDOM STARTS RESULTS RANKED FROM THE BEST TO THE WORST LOGLIKELIHOOD VALUES
+
+Final stage loglikelihood values at local maxima, seeds, and initial stage start numbers:
+
+           -6277.545  903420           5
+           -6277.546  68985            17
+           -6277.547  253358           2
+           -6277.548  462953           7
+           -6277.556  608496           4
+           -6278.415  650371           14
+           -6382.771  533738           11
+           -6382.778  637345           19
+           -6382.779  415931           10
+           -6386.729  27071            15
+
+
+
+THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED.  RERUN WITH AT LEAST TWICE THE
+RANDOM STARTS TO CHECK THAT THE BEST LOGLIKELIHOOD IS STILL OBTAINED AND REPLICATED.
+
+     THE STANDARD ERRORS OF THE MODEL PARAMETER ESTIMATES MAY NOT BE
+     TRUSTWORTHY FOR SOME PARAMETERS DUE TO A NON-POSITIVE DEFINITE
+     FIRST-ORDER DERIVATIVE PRODUCT MATRIX.  THIS MAY BE DUE TO THE STARTING
+     VALUES BUT MAY ALSO BE AN INDICATION OF MODEL NONIDENTIFICATION.  THE
+     CONDITION NUMBER IS       0.193D-13.  PROBLEM INVOLVING THE FOLLOWING PARAMETER:
+     Parameter 35, %BETWEEN%: C#1 ON CB#1
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       39
+
+Loglikelihood
+
+          H0 Value                       -6277.545
+          H0 Scaling Correction Factor      1.9198
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   12633.089
+          Bayesian (BIC)                 12841.834
+          Sample-Size Adjusted BIC       12717.940
+            (n* = (n + 2) / 24)
+
+
+
+MODEL RESULTS USE THE LATENT CLASS VARIABLE ORDER
+
+   CB  C
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASS PATTERNS
+BASED ON ESTIMATED POSTERIOR PROBABILITIES
+
+  Latent Class
+    Pattern
+
+    1  1          0.00007          0.00000
+    1  2         74.63681          0.04784
+    1  3         16.65502          0.01068
+    1  4         30.48184          0.01954
+    1  5         60.85595          0.03901
+    1  6        652.20695          0.41808
+    2  1         40.26926          0.02581
+    2  2        224.43669          0.14387
+    2  3         84.69965          0.05429
+    2  4         52.02585          0.03335
+    2  5         66.72431          0.04277
+    2  6        257.00759          0.16475
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR EACH LATENT CLASS VARIABLE
+BASED ON ESTIMATED POSTERIOR PROBABILITIES
+
+  Latent Class
+    Variable    Class
+
+    CB             1       834.83661          0.53515
+                   2       725.16333          0.46485
+    C              1        40.26933          0.02581
+                   2       299.07352          0.19171
+                   3       101.35467          0.06497
+                   4        82.50769          0.05289
+                   5       127.58026          0.08178
+                   6       909.21454          0.58283
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASS PATTERNS
+BASED ON THEIR MOST LIKELY LATENT CLASS PATTERN
+
+Class Counts and Proportions
+
+  Latent Class
+    Pattern
+
+    1  1                0          0.00000
+    1  2               51          0.03269
+    1  3                7          0.00449
+    1  4               31          0.01987
+    1  5               52          0.03333
+    1  6              737          0.47244
+    2  1               41          0.02628
+    2  2              243          0.15577
+    2  3               90          0.05769
+    2  4               53          0.03397
+    2  5               44          0.02821
+    2  6              211          0.13526
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR EACH LATENT CLASS VARIABLE
+BASED ON THEIR MOST LIKELY LATENT CLASS PATTERN
+
+  Latent Class
+    Variable    Class
+
+    CB             1             878          0.56282
+                   2             682          0.43718
+    C              1              41          0.02628
+                   2             294          0.18846
+                   3              97          0.06218
+                   4              84          0.05385
+                   5              96          0.06154
+                   6             948          0.60769
+
+
+CLASSIFICATION QUALITY
+
+     Entropy                         0.745
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Within Level
+
+Latent Class Pattern 1 1
+
+ Means
+    MLSSB              3.791      0.098     38.794      0.000
+    MLGSB              2.600      0.199     13.068      0.000
+    MMICRO             5.011      0.241     20.785      0.000
+    MLCOMM             3.196      0.129     24.774      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 1 2
+
+ Means
+    MLSSB              2.023      0.040     50.392      0.000
+    MLGSB              3.063      0.053     58.196      0.000
+    MMICRO             1.972      0.079     24.934      0.000
+    MLCOMM             3.601      0.048     75.278      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 1 3
+
+ Means
+    MLSSB              2.846      0.081     35.043      0.000
+    MLGSB              2.664      0.072     36.754      0.000
+    MMICRO             3.151      0.199     15.828      0.000
+    MLCOMM             3.310      0.080     41.452      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 1 4
+
+ Means
+    MLSSB              1.453      0.074     19.711      0.000
+    MLGSB              3.045      0.184     16.534      0.000
+    MMICRO             4.022      0.185     21.745      0.000
+    MLCOMM             3.631      0.137     26.490      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 1 5
+
+ Means
+    MLSSB              1.178      0.025     46.581      0.000
+    MLGSB              2.718      0.205     13.249      0.000
+    MMICRO             1.407      0.048     29.579      0.000
+    MLCOMM             2.909      0.108     26.989      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 1 6
+
+ Means
+    MLSSB              1.154      0.011    100.661      0.000
+    MLGSB              3.537      0.037     96.550      0.000
+    MMICRO             1.402      0.027     51.072      0.000
+    MLCOMM             4.079      0.037    108.979      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 2 1
+
+ Means
+    MLSSB              3.791      0.098     38.794      0.000
+    MLGSB              2.600      0.199     13.068      0.000
+    MMICRO             5.011      0.241     20.785      0.000
+    MLCOMM             3.196      0.129     24.774      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 2 2
+
+ Means
+    MLSSB              2.023      0.040     50.392      0.000
+    MLGSB              3.063      0.053     58.196      0.000
+    MMICRO             1.972      0.079     24.934      0.000
+    MLCOMM             3.601      0.048     75.278      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 2 3
+
+ Means
+    MLSSB              2.846      0.081     35.043      0.000
+    MLGSB              2.664      0.072     36.754      0.000
+    MMICRO             3.151      0.199     15.828      0.000
+    MLCOMM             3.310      0.080     41.452      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 2 4
+
+ Means
+    MLSSB              1.453      0.074     19.711      0.000
+    MLGSB              3.045      0.184     16.534      0.000
+    MMICRO             4.022      0.185     21.745      0.000
+    MLCOMM             3.631      0.137     26.490      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 2 5
+
+ Means
+    MLSSB              1.178      0.025     46.581      0.000
+    MLGSB              2.718      0.205     13.249      0.000
+    MMICRO             1.407      0.048     29.579      0.000
+    MLCOMM             2.909      0.108     26.989      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Latent Class Pattern 2 6
+
+ Means
+    MLSSB              1.154      0.011    100.661      0.000
+    MLGSB              3.537      0.037     96.550      0.000
+    MMICRO             1.402      0.027     51.072      0.000
+    MLCOMM             4.079      0.037    108.979      0.000
+
+ Variances
+    MLSSB              0.060      0.007      8.627      0.000
+    MLGSB              0.575      0.025     22.636      0.000
+    MMICRO             0.420      0.051      8.169      0.000
+    MLCOMM             0.343      0.027     12.837      0.000
+
+Between Level
+
+Categorical Latent Variables
+
+Within Level
+
+ Intercepts
+    C#1               -1.853      0.639     -2.900      0.004
+    C#2               -0.135      0.326     -0.416      0.678
+    C#3               -1.110      0.517     -2.147      0.032
+    C#4               -1.598      0.397     -4.027      0.000
+    C#5               -1.346      0.858     -1.569      0.117
+
+Between Level
+
+ C#1        ON
+    CB#1             -13.985      0.832    -16.807      0.000
+
+ C#2        ON
+    CB#1              -2.032      0.536     -3.790      0.000
+
+ C#3        ON
+    CB#1              -2.558      0.657     -3.891      0.000
+
+ C#4        ON
+    CB#1              -1.464      0.743     -1.972      0.049
+
+ C#5        ON
+    CB#1              -1.028      2.011     -0.511      0.609
+
+ Means
+    CB#1               0.053      0.793      0.067      0.946
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.193E-13
+       (ratio of smallest to largest eigenvalue)
+
+
+TECHNICAL 1 OUTPUT
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    1             2             3             4
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    9            10            11            12
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   13            14            15            16
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   17            18            19            20
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   21            22            23            24
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   25            26            27            28
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    1             2             3             4
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    9            10            11            12
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   13            14            15            16
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   17            18            19            20
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   21            22            23            24
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                   25            26            27            28
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              5
+ MLGSB              0             6
+ MMICRO             0             0             7
+ MLCOMM             0             0             0             8
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                    0             0             0             0
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB              0             0             0             0             0
+ MLGSB              0             0             0             0             0
+ MMICRO             0             0             0             0             0
+ MLCOMM             0             0             0             0             0
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB              0
+ MLGSB              0
+ MMICRO             0
+ MLCOMM             0
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB              0
+ MLGSB              0             0
+ MMICRO             0             0             0
+ MLCOMM             0             0             0             0
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                    0             0             0             0             0
+
+
+           ALPHA
+              C#5
+              ________
+                    0
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           BETA
+              C#5
+              ________
+ CB#1               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0
+ C#1                0             0
+ C#2                0             0             0
+ C#3                0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+
+
+           PSI
+              C#5
+              ________
+ C#5                0
+
+
+     PARAMETER SPECIFICATION FOR LATENT CLASS REGRESSION MODEL PART (WITHIN)
+
+
+           ALPHA(C)
+              CB#1          CB#2          C#1           C#2           C#3
+              ________      ________      ________      ________      ________
+                    0             0            30            31            32
+
+
+           ALPHA(C)
+              C#4           C#5           C#6
+              ________      ________      ________
+                   33            34             0
+
+
+           GAMMA(C)
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ CB#2               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+ C#6                0             0             0             0             0
+
+
+           GAMMA(C)
+              C#5
+              ________
+ CB#1               0
+ CB#2               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+ C#6                0
+
+
+     PARAMETER SPECIFICATION FOR LATENT CLASS REGRESSION MODEL PART (BETWEEN)
+
+
+           ALPHA(C)
+              CB#1          CB#2          C#1           C#2           C#3
+              ________      ________      ________      ________      ________
+                   29             0             0             0             0
+
+
+           ALPHA(C)
+              C#4           C#5           C#6
+              ________      ________      ________
+                    0             0             0
+
+
+           GAMMA(C)
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1               0             0             0             0             0
+ CB#2               0             0             0             0             0
+ C#1                0             0             0             0             0
+ C#2                0             0             0             0             0
+ C#3                0             0             0             0             0
+ C#4                0             0             0             0             0
+ C#5                0             0             0             0             0
+ C#6                0             0             0             0             0
+
+
+           GAMMA(C)
+              C#5
+              ________
+ CB#1               0
+ CB#2               0
+ C#1                0
+ C#2                0
+ C#3                0
+ C#4                0
+ C#5                0
+ C#6                0
+
+
+           BETA(C)
+              CB#1          CB#2
+              ________      ________
+ C#1               35             0
+ C#2               36             0
+ C#3               37             0
+ C#4               38             0
+ C#5               39             0
+ C#6                0             0
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 1 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR WITHIN LEVEL, LATENT CLASS PATTERN 2 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.222
+ MLGSB          0.000         0.344
+ MMICRO         0.000         0.000         0.587
+ MLCOMM         0.000         0.000         0.000         0.244
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 1 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 1
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 2
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 3
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 4
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 5
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR BETWEEN LEVEL, LATENT CLASS PATTERN 2 6
+
+
+           NU
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+                0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ MLSSB          0.000         0.000         0.000         0.000         0.000
+ MLGSB          0.000         0.000         0.000         0.000         0.000
+ MMICRO         0.000         0.000         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000         0.000
+
+
+           LAMBDA
+              C#5
+              ________
+ MLSSB          0.000
+ MLGSB          0.000
+ MMICRO         0.000
+ MLCOMM         0.000
+
+
+           THETA
+              MLSSB         MLGSB         MMICRO        MLCOMM
+              ________      ________      ________      ________
+ MLSSB          0.000
+ MLGSB          0.000         0.000
+ MMICRO         0.000         0.000         0.000
+ MLCOMM         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA
+              C#5
+              ________
+                0.000
+
+
+           BETA
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           BETA
+              C#5
+              ________
+ CB#1           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+
+
+           PSI
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+
+
+           PSI
+              C#5
+              ________
+ C#5            0.000
+
+
+     STARTING VALUES FOR LATENT CLASS REGRESSION MODEL PART (WITHIN)
+
+
+           ALPHA(C)
+              CB#1          CB#2          C#1           C#2           C#3
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA(C)
+              C#4           C#5           C#6
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           GAMMA(C)
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ CB#2           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+ C#6            0.000         0.000         0.000         0.000         0.000
+
+
+           GAMMA(C)
+              C#5
+              ________
+ CB#1           0.000
+ CB#2           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+ C#6            0.000
+
+
+     STARTING VALUES FOR LATENT CLASS REGRESSION MODEL PART (BETWEEN)
+
+
+           ALPHA(C)
+              CB#1          CB#2          C#1           C#2           C#3
+              ________      ________      ________      ________      ________
+                0.000         0.000         0.000         0.000         0.000
+
+
+           ALPHA(C)
+              C#4           C#5           C#6
+              ________      ________      ________
+                0.000         0.000         0.000
+
+
+           GAMMA(C)
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000         0.000         0.000         0.000         0.000
+ CB#2           0.000         0.000         0.000         0.000         0.000
+ C#1            0.000         0.000         0.000         0.000         0.000
+ C#2            0.000         0.000         0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+ C#6            0.000         0.000         0.000         0.000         0.000
+
+
+           GAMMA(C)
+              C#5
+              ________
+ CB#1           0.000
+ CB#2           0.000
+ C#1            0.000
+ C#2            0.000
+ C#3            0.000
+ C#4            0.000
+ C#5            0.000
+ C#6            0.000
+
+
+           BETA(C)
+              CB#1          CB#2
+              ________      ________
+ C#1            0.000         0.000
+ C#2            0.000         0.000
+ C#3            0.000         0.000
+ C#4            0.000         0.000
+ C#5            0.000         0.000
+ C#6            0.000         0.000
+
+
+TECHNICAL 8 OUTPUT
+
+
+  INITIAL STAGE ITERATIONS
+
+
+  TECHNICAL 8 OUTPUT FOR UNPERTURBED STARTING VALUE SET
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.91514310D+05    0.0000000    0.0000000  EM
+              2 -0.74910824D+04 ************    0.9181430  EM
+              3 -0.74910824D+04    0.0000000    0.0000000  EM
+
+
+  TECHNICAL 8 OUTPUT FOR STARTING VALUE SET 1
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.30982763D+05    0.0000000    0.0000000  EM
+              2 -0.74881004D+04 ************    0.7583140  EM
+              3 -0.73765502D+04  111.5501561    0.0148970  EM
+              4 -0.71550809D+04  221.4692812    0.0300234  EM
+              5 -0.69283262D+04  226.7547708    0.0316914  EM
+              6 -0.68217807D+04  106.5454711    0.0153782  EM
+              7 -0.67790677D+04   42.7129541    0.0062613  EM
+              8 -0.67516765D+04   27.3912326    0.0040406  EM
+              9 -0.67250364D+04   26.6400614    0.0039457  EM
+             10 -0.67005901D+04   24.4463635    0.0036351  EM
+
+
+  TECHNICAL 8 OUTPUT FOR STARTING VALUE SET 2
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.11550771D+06    0.0000000    0.0000000  EM
+              2 -0.72259029D+04 ************    0.9374422  EM
+              3 -0.70167237D+04  209.1792457    0.0289485  EM
+              4 -0.67842876D+04  232.4361068    0.0331260  EM
+              5 -0.66789395D+04  105.3480679    0.0155282  EM
+              6 -0.66435608D+04   35.3786756    0.0052970  EM
+              7 -0.66147304D+04   28.8304601    0.0043396  EM
+              8 -0.65858988D+04   28.8315136    0.0043587  EM
+              9 -0.65564222D+04   29.4766018    0.0044757  EM
+             10 -0.65281387D+04   28.2835738    0.0043139  EM
+
+
+  FINAL STAGE ITERATIONS
+
+
+  TECHNICAL 8 OUTPUT FOR STARTING VALUE SET 2
+
+
+
+
+   E STEP  ITER  LOGLIKELIHOOD    ABS CHANGE   REL CHANGE  ALGORITHM
+              1 -0.11550771D+06    0.0000000    0.0000000  EM
+              2 -0.72259029D+04 ************    0.9374422  EM
+              3 -0.70167237D+04  209.1792457    0.0289485  EM
+              4 -0.67842876D+04  232.4361068    0.0331260  EM
+              5 -0.66789395D+04  105.3480679    0.0155282  EM
+              6 -0.66435608D+04   35.3786756    0.0052970  EM
+              7 -0.66147304D+04   28.8304601    0.0043396  EM
+              8 -0.65858988D+04   28.8315136    0.0043587  EM
+              9 -0.65564222D+04   29.4766018    0.0044757  EM
+             10 -0.65281387D+04   28.2835738    0.0043139  EM
+             11 -0.65042533D+04   23.8853980    0.0036588  EM
+             12 -0.64831026D+04   21.1506358    0.0032518  EM
+             13 -0.64687269D+04   14.3757009    0.0022174  EM
+             14 -0.64608020D+04    7.9249520    0.0012251  EM
+             15 -0.64571900D+04    3.6119893    0.0005591  EM
+             16 -0.64551711D+04    2.0188546    0.0003127  EM
+             17 -0.64537630D+04    1.4080925    0.0002181  EM
+             18 -0.64526088D+04    1.1542127    0.0001788  EM
+             19 -0.64515341D+04    1.0747682    0.0001666  EM
+             20 -0.64504209D+04    1.1131348    0.0001725  EM
+             21 -0.64491657D+04    1.2551859    0.0001946  EM
+             22 -0.64476771D+04    1.4886095    0.0002308  EM
+             23 -0.64458972D+04    1.7799589    0.0002761  EM
+             24 -0.64437477D+04    2.1494706    0.0003335  EM
+             25 -0.64409467D+04    2.8009750    0.0004347  EM
+             26 -0.64368509D+04    4.0958686    0.0006359  EM
+             27 -0.64304048D+04    6.4460956    0.0010014  EM
+             28 -0.64205359D+04    9.8688919    0.0015347  EM
+             29 -0.64068276D+04   13.7083046    0.0021351  EM
+             30 -0.63890084D+04   17.8191897    0.0027813  EM
+             31 -0.63736498D+04   15.3586005    0.0024039  EM
+             32 -0.63679993D+04    5.6504558    0.0008865  EM
+             33 -0.63664745D+04    1.5248542    0.0002395  EM
+             34 -0.63659660D+04    0.5084912    0.0000799  EM
+             35 -0.63657345D+04    0.2315107    0.0000364  EM
+             36 -0.63655924D+04    0.1420365    0.0000223  EM
+             37 -0.63654840D+04    0.1084672    0.0000170  EM
+             38 -0.63653901D+04    0.0938989    0.0000148  EM
+             39 -0.63653033D+04    0.0867183    0.0000136  EM
+             40 -0.63652204D+04    0.0828908    0.0000130  EM
+             41 -0.63651396D+04    0.0808308    0.0000127  EM
+             42 -0.63650598D+04    0.0798092    0.0000125  EM
+             43 -0.63649804D+04    0.0794313    0.0000125  EM
+             44 -0.63649009D+04    0.0794538    0.0000125  EM
+             45 -0.63648212D+04    0.0797134    0.0000125  EM
+             46 -0.63647411D+04    0.0800950    0.0000126  EM
+             47 -0.63646606D+04    0.0805155    0.0000127  EM
+             48 -0.63645797D+04    0.0809144    0.0000127  EM
+             49 -0.63644984D+04    0.0812479    0.0000128  EM
+             50 -0.63644170D+04    0.0814851    0.0000128  EM
+             51 -0.63643353D+04    0.0816046    0.0000128  EM
+             52 -0.63642538D+04    0.0815932    0.0000128  EM
+             53 -0.63641723D+04    0.0814437    0.0000128  EM
+             54 -0.63640912D+04    0.0811539    0.0000128  EM
+             55 -0.63640104D+04    0.0807257    0.0000127  EM
+             56 -0.63639303D+04    0.0801640    0.0000126  EM
+             57 -0.63638508D+04    0.0794763    0.0000125  EM
+             58 -0.63637721D+04    0.0786718    0.0000124  EM
+             59 -0.63636944D+04    0.0777607    0.0000122  EM
+             60 -0.63636176D+04    0.0767544    0.0000121  EM
+             61 -0.63635419D+04    0.0756641    0.0000119  EM
+             62 -0.63634674D+04    0.0745017    0.0000117  EM
+             63 -0.63633942D+04    0.0732785    0.0000115  EM
+             64 -0.63633222D+04    0.0720053    0.0000113  EM
+             65 -0.63632515D+04    0.0706925    0.0000111  EM
+             66 -0.63631821D+04    0.0693497    0.0000109  EM
+             67 -0.63631141D+04    0.0679857    0.0000107  EM
+             68 -0.63627241D+04    0.3900469    0.0000613  QN
+             69 -0.63624267D+04    0.2973475    0.0000467  EM
+             70 -0.63623331D+04    0.0936124    0.0000147  EM
+             71 -0.63622653D+04    0.0678437    0.0000107  EM
+             72 -0.63622069D+04    0.0583871    0.0000092  EM
+             73 -0.63621527D+04    0.0541551    0.0000085  EM
+             74 -0.63621010D+04    0.0517623    0.0000081  EM
+             75 -0.63620509D+04    0.0500791    0.0000079  EM
+             76 -0.63620022D+04    0.0487076    0.0000077  EM
+             77 -0.63619547D+04    0.0474983    0.0000075  EM
+             78 -0.63619083D+04    0.0463905    0.0000073  EM
+             79 -0.63618629D+04    0.0453572    0.0000071  EM
+             80 -0.63618186D+04    0.0443851    0.0000070  EM
+             81 -0.63617751D+04    0.0434671    0.0000068  EM
+             82 -0.63615545D+04    0.2205611    0.0000347  QN
+             83 -0.63613296D+04    0.2249596    0.0000354  EM
+             84 -0.63612699D+04    0.0596198    0.0000094  EM
+             85 -0.63612242D+04    0.0457182    0.0000072  EM
+             86 -0.63611823D+04    0.0419078    0.0000066  EM
+             87 -0.63611417D+04    0.0405884    0.0000064  EM
+             88 -0.63611017D+04    0.0399866    0.0000063  EM
+             89 -0.63610621D+04    0.0396435    0.0000062  EM
+             90 -0.63610227D+04    0.0394326    0.0000062  EM
+             91 -0.63609834D+04    0.0393176    0.0000062  EM
+             92 -0.63609441D+04    0.0392882    0.0000062  EM
+             93 -0.63609047D+04    0.0393425    0.0000062  EM
+             94 -0.63608652D+04    0.0394817    0.0000062  EM
+             95 -0.63596608D+04    1.2044426    0.0001894  QN
+             96 -0.63590944D+04    0.5664354    0.0000891  EM
+             97 -0.63589642D+04    0.1301677    0.0000205  EM
+             98 -0.63588711D+04    0.0931333    0.0000146  EM
+             99 -0.63587880D+04    0.0830592    0.0000131  EM
+            100 -0.63587078D+04    0.0802410    0.0000126  EM
+            101 -0.63586274D+04    0.0803654    0.0000126  EM
+            102 -0.63585453D+04    0.0820696    0.0000129  EM
+            103 -0.63584605D+04    0.0848363    0.0000133  EM
+            104 -0.63583720D+04    0.0884652    0.0000139  EM
+            105 -0.63582791D+04    0.0929054    0.0000146  EM
+            106 -0.63581809D+04    0.0981937    0.0000154  EM
+            107 -0.63580765D+04    0.1044339    0.0000164  EM
+            108 -0.63579647D+04    0.1117931    0.0000176  EM
+            109 -0.63571510D+04    0.8137189    0.0001280  QN
+            110 -0.63558734D+04    1.2776275    0.0002010  EM
+            111 -0.63552058D+04    0.6675955    0.0001050  EM
+            112 -0.63544752D+04    0.7305851    0.0001150  EM
+            113 -0.63535850D+04    0.8902085    0.0001401  EM
+            114 -0.63524639D+04    1.1210893    0.0001764  EM
+            115 -0.63510297D+04    1.4341575    0.0002258  EM
+            116 -0.63490592D+04    1.9705519    0.0003103  EM
+            117 -0.63458843D+04    3.1748696    0.0005001  EM
+            118 -0.63401768D+04    5.7074980    0.0008994  EM
+            119 -0.63307131D+04    9.4636668    0.0014927  EM
+            120 -0.63198994D+04   10.8137722    0.0017081  EM
+            121 -0.63156577D+04    4.2417036    0.0006712  EM
+            122 -0.63130641D+04    2.5935291    0.0004107  EM
+            123 -0.63110148D+04    2.0493452    0.0003246  EM
+            124 -0.63096800D+04    1.3347811    0.0002115  EM
+            125 -0.63087878D+04    0.8921866    0.0001414  EM
+            126 -0.63081189D+04    0.6688922    0.0001060  EM
+            127 -0.63075674D+04    0.5514808    0.0000874  EM
+            128 -0.63070812D+04    0.4862460    0.0000771  EM
+            129 -0.63066314D+04    0.4497766    0.0000713  EM
+            130 -0.63062002D+04    0.4312595    0.0000684  EM
+            131 -0.63057747D+04    0.4254989    0.0000675  EM
+            132 -0.63053445D+04    0.4301343    0.0000682  EM
+            133 -0.63049001D+04    0.4444548    0.0000705  EM
+            134 -0.63044312D+04    0.4688590    0.0000744  EM
+            135 -0.63039267D+04    0.5045401    0.0000800  EM
+            136 -0.63033735D+04    0.5531882    0.0000878  EM
+            137 -0.63027570D+04    0.6164721    0.0000978  EM
+            138 -0.63020619D+04    0.6951079    0.0001103  EM
+            139 -0.63012745D+04    0.7874341    0.0001249  EM
+            140 -0.63003866D+04    0.8878859    0.0001409  EM
+            141 -0.62994000D+04    0.9865739    0.0001566  EM
+            142 -0.62983285D+04    1.0714669    0.0001701  EM
+            143 -0.62971959D+04    1.1326739    0.0001798  EM
+            144 -0.62960308D+04    1.1650570    0.0001850  EM
+            145 -0.62948639D+04    1.1668813    0.0001853  EM
+            146 -0.62937260D+04    1.1379700    0.0001808  EM
+            147 -0.62926452D+04    1.0808025    0.0001717  EM
+            148 -0.62916429D+04    1.0023050    0.0001593  EM
+            149 -0.62901105D+04    1.5323339    0.0002436  FS
+            150 -0.62849130D+04    5.1974924    0.0008263  FS
+            151 -0.62825852D+04    2.3278536    0.0003704  EM
+            152 -0.62819394D+04    0.6457871    0.0001028  EM
+            153 -0.62814597D+04    0.4797064    0.0000764  EM
+            154 -0.62810727D+04    0.3870183    0.0000616  EM
+            155 -0.62807514D+04    0.3212227    0.0000511  EM
+            156 -0.62804801D+04    0.2713128    0.0000432  EM
+            157 -0.62802477D+04    0.2324471    0.0000370  EM
+            158 -0.62800459D+04    0.2017530    0.0000321  EM
+            159 -0.62798687D+04    0.1772659    0.0000282  EM
+            160 -0.62797111D+04    0.1575484    0.0000251  EM
+            161 -0.62795696D+04    0.1415173    0.0000225  EM
+            162 -0.62794412D+04    0.1283466    0.0000204  EM
+            163 -0.62793238D+04    0.1174016    0.0000187  EM
+            164 -0.62792156D+04    0.1081949    0.0000172  EM
+            165 -0.62791153D+04    0.1003510    0.0000160  EM
+            166 -0.62790217D+04    0.0935802    0.0000149  EM
+            167 -0.62789341D+04    0.0876589    0.0000140  EM
+            168 -0.62788516D+04    0.0824137    0.0000131  EM
+            169 -0.62787739D+04    0.0777101    0.0000124  EM
+            170 -0.62787005D+04    0.0734433    0.0000117  EM
+            171 -0.62786310D+04    0.0695313    0.0000111  EM
+            172 -0.62785650D+04    0.0659103    0.0000105  EM
+            173 -0.62785025D+04    0.0625302    0.0000100  EM
+            174 -0.62784432D+04    0.0593514    0.0000095  EM
+            175 -0.62783868D+04    0.0563433    0.0000090  EM
+            176 -0.62783333D+04    0.0534818    0.0000085  EM
+            177 -0.62776275D+04    0.7058211    0.0001124  QN
+            178 -0.62776040D+04    0.0235643    0.0000038  EM
+            179 -0.62775923D+04    0.0116077    0.0000018  EM
+            180 -0.62775834D+04    0.0089760    0.0000014  EM
+            181 -0.62775762D+04    0.0071621    0.0000011  EM
+            182 -0.62775704D+04    0.0057878    0.0000009  EM
+            183 -0.62775657D+04    0.0047132    0.0000008  EM
+            184 -0.62775618D+04    0.0038606    0.0000006  EM
+            185 -0.62775587D+04    0.0031790    0.0000005  EM
+            186 -0.62775560D+04    0.0026310    0.0000004  EM
+            187 -0.62775539D+04    0.0021888    0.0000003  EM
+            188 -0.62775520D+04    0.0018306    0.0000003  EM
+            189 -0.62775505D+04    0.0015396    0.0000002  EM
+            190 -0.62775492D+04    0.0013024    0.0000002  EM
+            191 -0.62775481D+04    0.0011086    0.0000002  EM
+            192 -0.62775471D+04    0.0009496    0.0000002  EM
+
+
+SAMPLE STATISTICS FOR ESTIMATED FACTOR SCORES
+
+
+     SAMPLE STATISTICS
+
+
+           Means
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+                0.053        -1.853        -0.135        -1.110        -1.598
+
+
+           Means
+              C#5           C_CB#1        C_C#1         C_C#2         C_C#3
+              ________      ________      ________      ________      ________
+               -1.346         0.053        -1.853        -0.135        -1.110
+
+
+           Means
+              C_C#4         C_C#5
+              ________      ________
+               -1.598        -1.346
+
+
+           Covariances
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           0.000
+ C#1            0.000         0.000
+ C#2            0.000         0.000         0.000
+ C#3            0.000         0.000         0.000         0.000
+ C#4            0.000         0.000         0.000         0.000         0.000
+ C#5            0.000         0.000         0.000         0.000         0.000
+ C_CB#1         0.000         0.000         0.000         0.000         0.000
+ C_C#1          0.000         0.000         0.000         0.000         0.000
+ C_C#2          0.000         0.000         0.000         0.000         0.000
+ C_C#3          0.000         0.000         0.000         0.000         0.000
+ C_C#4          0.000         0.000         0.000         0.000         0.000
+ C_C#5          0.000         0.000         0.000         0.000         0.000
+
+
+           Covariances
+              C#5           C_CB#1        C_C#1         C_C#2         C_C#3
+              ________      ________      ________      ________      ________
+ C#5            0.000
+ C_CB#1         0.000         0.000
+ C_C#1          0.000         0.000         0.000
+ C_C#2          0.000         0.000         0.000         0.000
+ C_C#3          0.000         0.000         0.000         0.000         0.000
+ C_C#4          0.000         0.000         0.000         0.000         0.000
+ C_C#5          0.000         0.000         0.000         0.000         0.000
+
+
+           Covariances
+              C_C#4         C_C#5
+              ________      ________
+ C_C#4          0.000
+ C_C#5          0.000         0.000
+
+
+           Correlations
+              CB#1          C#1           C#2           C#3           C#4
+              ________      ________      ________      ________      ________
+ CB#1           1.000
+ C#1          999.000         1.000
+ C#2          999.000       999.000         1.000
+ C#3          999.000       999.000       999.000         1.000
+ C#4          999.000       999.000       999.000       999.000         1.000
+ C#5          999.000       999.000       999.000       999.000       999.000
+ C_CB#1       999.000       999.000       999.000       999.000       999.000
+ C_C#1        999.000       999.000       999.000       999.000       999.000
+ C_C#2        999.000       999.000       999.000       999.000       999.000
+ C_C#3        999.000       999.000       999.000       999.000       999.000
+ C_C#4        999.000       999.000       999.000       999.000       999.000
+ C_C#5        999.000       999.000       999.000       999.000       999.000
+
+
+           Correlations
+              C#5           C_CB#1        C_C#1         C_C#2         C_C#3
+              ________      ________      ________      ________      ________
+ C#5            1.000
+ C_CB#1       999.000         1.000
+ C_C#1        999.000       999.000         1.000
+ C_C#2        999.000       999.000       999.000         1.000
+ C_C#3        999.000       999.000       999.000       999.000         1.000
+ C_C#4        999.000       999.000       999.000       999.000       999.000
+ C_C#5        999.000       999.000       999.000       999.000       999.000
+
+
+           Correlations
+              C_C#4         C_C#5
+              ________      ________
+ C_C#4          1.000
+ C_C#5        999.000         1.000
+
+
+PLOT INFORMATION
+
+The following plots are available:
+
+  Histograms (sample values, estimated factor scores)
+  Scatterplots (sample values, estimated factor scores)
+  Sample means
+  Estimated means, medians, modes, and percentiles
+  Sample and estimated means
+  Latent variable distribution plots
+  Observed individual values
+  Estimated means and observed individual values
+
+     Beginning Time:  11:02:16
+        Ending Time:  11:02:20
+       Elapsed Time:  00:00:04
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen

@@ -1,0 +1,81 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+04/19/2023   6:23 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  model01_parametric_mlca
+  DATA:
+  FILE = "mlpa/model01_fixed.dat";
+
+  VARIABLE:
+  NAMES = LCOALT LCONSUL LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP LPRESS LRAPER MBULLY
+       MCYN MEXH MLCOMM MLDEFF MLGSB MLSSB MLYING MMICRO MSCC MSELFE MSTRESS MWELLB
+       TEAMID MRESPNUM ProgrM DuratM MGENDER MAGE MEDU MTENUR_O MTENUR_T MTENUR_F
+       MCONTACT MCOVID_B MCOVID_S LRespNr ProgrL DuratL LGENDER LAGE LEDU TENURE_O
+       TENURE_T TENURE_F TEAMSIZE LOCATION LCOVID_B LCOVID_S TEAMID_1 id;
+   MISSING=.;
+   usevar = MLSSB MLGSB MMICRO MLCOMM;
+  classes = c(6);
+  cluster = id; ! level 2 units are schools
+  within = MLSSB MLGSB MMICRO MLCOMM;
+  ANALYSIS:
+  estimator = mlr;
+  type = mixture twolevel;
+  starts = 100 5;
+  processors = 10;
+  MODEL:
+  %WITHIN%
+  %OVERALL%
+  %BETWEEN%
+  %OVERALL%
+  C#1;
+  C#2;
+  C#3;
+  C#4;
+  C#5;
+  C#1 WITH C#2;
+  C#3 WITH C#1 C#2;
+  C#4 WITH C#1 C#2 C#3;
+  C#5 WITH C#1 C#2 C#3 C#4;
+  OUTPUT:
+  TECH8;
+  PLOT:
+  type = plot3;
+  series = MLSSB MLGSB MMICRO MLCOMM(*);
+
+
+
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLSSB
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLGSB
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MMICRO
+*** WARNING in MODEL command
+  Variable is uncorrelated with all other variables within class: MLCOMM
+*** WARNING in MODEL command
+  At least one variable is uncorrelated with all other variables within class.
+  Check that this is what is intended.
+*** WARNING
+  One or more individual-level variables have no variation within a
+  cluster for the following clusters.
+
+     Variable   Cluster IDs with no within-cluster variation
+
+      MLSSB       175 11 13 196 57 236 241 244 248 252 281 78 320 330 331 364 365 101 368 394
+                  426 32 458 478 37 134 305 321 339 14 26 378 27 213 464 496 33 12
+      MLGSB       11 282 24 365 368 460 469 126 8 14
+      MMICRO      175 11 13 51 205 229 240 66 275 280 80 101 368 32 41 478 488 128 340 342 14
+                  25 378 383 389 233 17 36
+      MLCOMM      178 196 207 55 217 228 275 280 78 292 88 330 348 364 368 41 120 478 488 305
+                  14 83 509 12
+
+   6 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+model01_parametric_mlca
+

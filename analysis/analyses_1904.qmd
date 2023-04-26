@@ -672,7 +672,7 @@ setwd("/Users/annekleine/Dropbox/leader_tactics/leader_tact")
 mlca_icc <- mplusObject(
 TITLE = "model00_basic_ICC_mlca",
 VARIABLE =
-"usevar = MMICRO MLCOMM;
+"usevar = MLSSB MLGSB MMICRO MLCOMM;
 cluster = TEAMID;",
 ANALYSIS =
 "estimator = mlr;
@@ -697,12 +697,12 @@ output_enum$mlca_icc.out
 ### Fixed effect model
                             
 ```{r}
-lca_k2_7 <- lapply(4:6, function(k) {
+lca_k2_7 <- lapply(2:10, function(k) {
 lca_enum <- mplusObject(
 TITLE = glue("C{k}_mlpa_enum"),
 VARIABLE =
 glue(
-"usevar = MMICRO MLCOMM MLGSB MLSSB;
+"usevar = MLSSB MLGSB MMICRO MLCOMM;
 classes = c({k});"),
 ANALYSIS =
 "estimator = mlr;
@@ -712,7 +712,7 @@ MODEL = "",
 OUTPUT = "",
 PLOT =
 "type = plot3;
-series = MMICRO MLCOMM MLGSB MLSSB(*);",
+series = MLSSB MLGSB MMICRO MLCOMM(*);",
 usevariables = colnames(comp_df_full),
 rdata = comp_df_full)
 lca_enum_fit <- mplusModeler(lca_enum,
@@ -757,7 +757,7 @@ pp1 <- cbind(Var = paste0("U", 1:4), pp1)
 # choose the order of indicators & label
 pp1$Var <- factor(pp1$Var,
 levels = c("U1","U2", "U3", "U4"),
-labels = c("MMICRO", "MLCOMM", "MLGSB", "MLSSB"))
+labels = c("MLSSB", "MLGSB", "MMICRO", "MLCOMM"))
 library(reshape2)
 library(cowplot)
 pd_long <- melt(pp1, id.vars = "Var")
@@ -995,53 +995,50 @@ ggplot(pp1) +
 
 ```{r}
 mlpa_4 <- mplusObject(
-TITLE = "Multilevel LPA - covariates",
+TITLE = "Multilevel LPA - L2 classes based on freq of L1 profiles",
 VARIABLE =
 "usevar = MLSSB MLGSB MMICRO MLCOMM LCOALT LCONSUL 
           LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP 
           LPRESS LRAPER LGENDER LAGE
           MSTRESS MGENDER MAGE MTENUR_O;
-classes = C(6);
-cluster = id;
-within = MLSSB MLGSB MMICRO MLCOMM MSTRESS MGENDER MAGE MTENUR_O;
-between = CB LCOALT LCONSUL 
-          LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP 
-          LPRESS LRAPER LGENDER LAGE;",
-DEFINE =
-"CENTER MSTRESS (GROUPMEAN);",
+within = MLSSB MLGSB MMICRO MLCOMM;
+classes = BC(2) C(6);
+cluster = id; 
+between = BC;",
 ANALYSIS =
 "estimator = mlr;
-type = mixture twolevel;
-starts = 0;",
+type = mixture twolevel;",
 MODEL =
 "%WITHIN%
 %OVERALL%
 C ON MSTRESS MGENDER MAGE MTENUR_O;
-%C#1%
-[MLSSB@3.791 MLGSB@2.600 MMICRO@5.011 MLCOMM@3.196];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#2%
-[MLSSB@2.023 MLGSB@3.063 MMICRO@1.972 MLCOMM@3.601];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#3%
-[MLSSB@2.846 MLGSB@2.664 MMICRO@3.151 MLCOMM@3.310];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#4%
-[MLSSB@1.453 MLGSB@3.045 MMICRO@4.022 MLCOMM@3.631];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#5%
-[MLSSB@1.178 MLGSB@2.718 MMICRO@1.407 MLCOMM@2.909];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#6%
-[MLSSB@1.154 MLGSB@3.537 MMICRO@1.402 MLCOMM@4.079];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-
 %BETWEEN%
 %OVERALL%
-C ON LCOALT LCONSUL 
-     LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP 
-     LPRESS LRAPER LGENDER LAGE;
-c#1;",
+C ON BC;
+BC ON LCOALT LCONSUL LDEPR LEXCH LINAP 
+      LINTEG LLEGTAC LPEAPP 
+      LPRESS LRAPER LGENDER LAGE;
+
+MODEL C:
+%WITHIN%
+%C#1%
+[MLSSB@1.151 MLGSB@3.437 MMICRO@1.377 MLCOMM@3.934];
+MLSSB@0.054 MLGSB@0.617 MMICRO@0.350 MLCOMM@0.442;
+%C#2%
+[MLSSB@2.011 MLGSB@3.080 MMICRO@1.916 MLCOMM@3.600];
+MLSSB@0.054 MLGSB@0.617 MMICRO@0.350 MLCOMM@0.442;
+%C#3%
+[MLSSB@3.786 MLGSB@2.568 MMICRO@5.128 MLCOMM@3.190];
+MLSSB@0.054 MLGSB@0.617 MMICRO@0.350 MLCOMM@0.442;
+%C#4%
+[MLSSB@2.990 MLGSB@2.686 MMICRO@2.829 MLCOMM@3.351];
+MLSSB@0.054 MLGSB@0.617 MMICRO@0.350 MLCOMM@0.442;
+%C#5%
+[MLSSB@1.286 MLGSB@3.296 MMICRO@3.638 MLCOMM@3.793];
+MLSSB@0.054 MLGSB@0.617 MMICRO@0.350 MLCOMM@0.442;
+%C#6%
+[MLSSB@2.205 MLGSB@2.573 MMICRO@4.328 MLCOMM@3.365];
+MLSSB@0.054 MLGSB@0.617 MMICRO@0.350 MLCOMM@0.442;",
 OUTPUT = "TECH8;",
 usevariables = colnames(comp_df_full),
 rdata = comp_df_full)
@@ -1051,72 +1048,6 @@ dataout="mlpa/mlpa_4.dat",
 modelout="mlpa/mlpa_4.inp",
 check=TRUE, run = FALSE, hashfilename = FALSE)
 ```
-
-## Model 4b: including covariates non-parametric
-
-MLSSB MLGSB MMICRO MLCOMM LCOALT LCONSUL 
-          LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP 
-          LPRESS LRAPER LGENDER LAGE
-          MSTRESS MGENDER MAGE MTENUR_O
-          
-```{r}
-mlpa_4b <- mplusObject(
-TITLE = "Multilevel LPA - covariates",
-VARIABLE =
-"usevar = MLSSB MLGSB MMICRO MLCOMM LCOALT LCONSUL 
-          LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP 
-          LPRESS LRAPER LGENDER LAGE
-          MSTRESS MGENDER MAGE MTENUR_O;
-classes = BC(2) C(6);
-cluster = id;
-within = MLSSB MLGSB MMICRO MLCOMM MSTRESS MGENDER MAGE MTENUR_O;
-between = BC LCOALT LCONSUL 
-          LDEPR LEXCH LINAP LINTEG LLEGTAC LPEAPP 
-          LPRESS LRAPER LGENDER LAGE;",
-ANALYSIS =
-"estimator = mlr;
-type = mixture twolevel;",
-MODEL =
-"MODEL:
-%WITHIN%
-%OVERALL%
-C ON MSTRESS;
-%BETWEEN%
-%OVERALL%
-C ON BC LLEGTAC;
-BC ON LCONSUL LPEAPP; 
-
-MODEL C:
-%WITHIN%
-%C#1%
-[MLSSB@3.791 MLGSB@2.600 MMICRO@5.011 MLCOMM@3.196];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#2%
-[MLSSB@2.023 MLGSB@3.063 MMICRO@1.972 MLCOMM@3.601];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#3%
-[MLSSB@2.846 MLGSB@2.664 MMICRO@3.151 MLCOMM@3.310];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#4%
-[MLSSB@1.453 MLGSB@3.045 MMICRO@4.022 MLCOMM@3.631];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#5%
-[MLSSB@1.178 MLGSB@2.718 MMICRO@1.407 MLCOMM@2.909];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;
-%C#6%
-[MLSSB@1.154 MLGSB@3.537 MMICRO@1.402 MLCOMM@4.079];
-MLSSB@0.060 MLGSB@0.575 MMICRO@0.420 MLCOMM@0.343;",
-OUTPUT = "TECH8;",
-usevariables = colnames(comp_df_full),
-rdata = comp_df_full)
-
-mlpa_4b_fit <- mplusModeler(mlpa_4b,
-dataout="mlpa/mlpa_4b.dat",
-modelout="mlpa/mlpa_4b.inp",
-check=TRUE, run = FALSE, hashfilename = FALSE)
-```
-
-
 ## Model 06: non-parametric model with level-2 factor on latent class indicators
 
 ```{r}
@@ -1172,316 +1103,4 @@ dataout="mlpa/mlpa_06.dat",
 modelout="mlpa/mlpa_06.inp",
 check=TRUE, run = FALSE, hashfilename = FALSE)
 ```
-
-
-# Muthen models
-
-## Fixed effects model (model01)
-
-```{r}
-library(MplusAutomation)
-mlca_01 <- mplusObject(
-TITLE = "model01_parametric_mlca",
-VARIABLE =
-"usevar = MLSSB MLGSB MMICRO MLCOMM;
-classes = c(6);
-cluster = id; ! level 2 units are schools
-within = MLSSB MLGSB MMICRO MLCOMM;",
-ANALYSIS =
-"estimator = mlr;
-type = mixture twolevel;
-integration=montecarlo(1000);
-starts = 100 5;
-processors = 10;",
-MODEL =
-"%WITHIN%
-%OVERALL%
-%BETWEEN%
-%OVERALL%
-C#1;
-C#2;
-C#3;
-C#4;
-C#5;
-C#1 WITH C#2;
-C#3 WITH C#1 C#2; 
-C#4 WITH C#1 C#2 C#3;
-C#5 WITH C#1 C#2 C#3 C#4;",
-OUTPUT = "TECH8;",
-PLOT =
-"type = plot3;
-series = MLSSB MLGSB MMICRO MLCOMM(*);",
-usevariables = colnames(comp_df_full),
-rdata = comp_df_full)
-
-mlca_01_fit <- mplusModeler(mlca_01,
-dataout="mlpa/model01_fixed.dat",
-modelout="mlpa/model01_fixed.inp",
-check=TRUE, run = FALSE, hashfilename = FALSE)
-```
-
-
-## Parametric model (model02)
-
-- BIC: 12815.889
-
-```{r}
-mlca_02_m <- mplusObject(
-TITLE = "model02_parametric_mlca",
-VARIABLE =
-"usevar = MLSSB MLGSB MMICRO MLCOMM;
-classes = c(6);
-cluster = id; ! level 2 units are schools
-within = MLSSB MLGSB MMICRO MLCOMM;",
-ANALYSIS =
-"estimator = mlr;
-type = mixture twolevel;
-starts = 20 10;
-processors = 10;",
-MODEL =
-"%WITHIN%
-%OVERALL%
-%BETWEEN%
-%OVERALL%
-FC by C#1 C#2 C#3 C#4 C#5;",
-OUTPUT = "TECH8;",
-PLOT =
-"type = plot3;
-series = MLSSB MLGSB MMICRO MLCOMM(*);",
-usevariables = colnames(comp_df_full),
-rdata = comp_df_full)
-
-mlca_02_fit <- mplusModeler(mlca_02_m,
-dataout="mlpa/model02_parametric.dat",
-modelout="mlpa/model02_parametric.inp",
-check=TRUE, run = FALSE, hashfilename = FALSE)
-```
-
-## Non-parametric model (model03)
-
-- BIC: 12841.834
-
-```{r}
-mlca_03_m <- mplusObject(
-TITLE = "model03_non_parametric_mlca",
-VARIABLE =
-"usevar = MLSSB MLGSB MMICRO MLCOMM;
-classes = CB(2) c(6);
-cluster = id; ! level 2 units are schools
-within = MLSSB MLGSB MMICRO MLCOMM;
-between = CB;",
-ANALYSIS =
-"estimator = mlr;
-type = mixture twolevel;
-starts = 20 10;
-processors = 10;",
-MODEL =
-"%WITHIN%
-%OVERALL%
-%BETWEEN%
-%OVERALL%
-C on CB;
-MODEL C:
-%WITHIN%
-%C#1%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#2%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#3%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#4%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#5%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#6%
-[MLSSB MLGSB MMICRO MLCOMM];",
-OUTPUT = "TECH8;",
-PLOT =
-"type = plot3;
-series = MLSSB MLGSB MMICRO MLCOMM(*);",
-usevariables = colnames(comp_df_full),
-rdata = comp_df_full)
-
-
-mlca_03_fit <- mplusModeler(mlca_03_m,
-dataout="mlpa/model03_nonparametric.dat",
-modelout="mlpa/model03_nonparametric.inp",
-check=TRUE, run = FALSE, hashfilename = FALSE)
-```
-
-## Parametric model with 2nd level factor on random latent class indicators 
-
-- does not converge 
-
-```{r}
-mlca_04_m <- mplusObject(
-TITLE = "model04_parametric_mlca",
-VARIABLE =
-"usevar = MLSSB MLGSB MMICRO MLCOMM;
-classes = c(6);
-cluster = id; ",
-ANALYSIS =
-"estimator = mlr;
-type = mixture twolevel;
-INTEGRATION=MONTECARLO;
-starts = 20 10;
-processors = 10;",
-MODEL =
-"%WITHIN%
-%OVERALL%
-%BETWEEN%
-%OVERALL%
-FU by MLSSB MLGSB MMICRO MLCOMM;
-[FU@0];
-FU WITH C#1 C#2 C#3 C#4 C#5;
-C#1;
-C#2;
-C#3;
-C#4;
-C#5;
-C#1 WITH C#2;
-C#3 WITH C#1 C#2;
-C#4 WITH C#1 C#2 C#3;
-C#5 WITH C#1 C#2 C#3 C#4;
-%C#1%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#2%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#3%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#4%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#5%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#6%
-[MLSSB MLGSB MMICRO MLCOMM];", 
-OUTPUT = "TECH8;",
-PLOT =
-"type = plot3;
-series = MLSSB MLGSB MMICRO MLCOMM(*);",
-usevariables = colnames(comp_df_full),
-rdata = comp_df_full)
-
-mlca_04_fit <- mplusModeler(mlca_04_m,
-dataout="mlpa/model04_parametricwithfactor.dat",
-modelout="mlpa/model04_parametricwithfactor.inp",
-check=TRUE, run = FALSE, hashfilename = FALSE)
-```
-
-## Parametric model with 2nd level factor on random latent class intercepts & 2nd level factor on random latent class indicators
-
-- does not converge
-
-```{r}
-mlca_05_m <- mplusObject(
-TITLE = "model05_parametric_mlca",
-VARIABLE =
-"usevar = MLSSB MLGSB MMICRO MLCOMM;
-classes = c(6);
-cluster = id; ",
-ANALYSIS =
-"estimator = mlr;
-type = mixture twolevel;
-starts = 20 10;
-processors = 10;",
-MODEL =
-"%WITHIN%
-%OVERALL%
-%BETWEEN%
-%OVERALL%
-FU by MLSSB MLGSB MMICRO MLCOMM;
-[FU@0];
-FC BY C#1 C#2 C#3 C#4 C#5;
-FC WITH FU;
-%C#1%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#2%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#3%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#4%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#5%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#6%
-[MLSSB MLGSB MMICRO MLCOMM]",
-OUTPUT = "TECH8;",
-PLOT =
-"type = plot3;
-series = MLSSB MLGSB MMICRO MLCOMM(*);",
-usevariables = colnames(comp_df_full),
-rdata = comp_df_full)
-
-mlca_05_fit <- mplusModeler(mlca_05_m,
-dataout="mlpa/model05_parametricwithfactorintercept.dat",
-modelout="mlpa/model05_parametricwithfactorintercept.inp",
-check=TRUE, run = FALSE, hashfilename = FALSE)
-```
-
-
-## Non-parametric model with level-2 factor on latent class indicators
-
-- BIC: 12675.007
-
-```{r}
-mlca_06_m <- mplusObject(
-TITLE = "model06_non_parametric_mlca",
-VARIABLE =
-"usevar = MLSSB MLGSB MMICRO MLCOMM;
-classes = CB(2) c(6);
-cluster = id; ! level 2 units are schools
-between = CB;",
-ANALYSIS =
-"estimator = mlr;
-type = mixture twolevel;
-starts = 20 10;
-processors = 10;",
-MODEL =
-"%WITHIN%
-%OVERALL%
-%BETWEEN%
-%OVERALL%
-FU BY MLSSB MLGSB MMICRO MLCOMM;
-[FU@0];
-C on CB;
-MODEL CB:
-%BETWEEN%
-%CB#1%
-[FU@0];
-%CB#2%
-[FU];
-MODEL C:
-%BETWEEN%
-%C#1%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#2%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#3%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#4%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#5%
-[MLSSB MLGSB MMICRO MLCOMM];
-%C#6%
-[MLSSB MLGSB MMICRO MLCOMM];",
-OUTPUT = "TECH8;",
-PLOT =
-"type = plot3;
-series = MLSSB MLGSB MMICRO MLCOMM(*);",
-usevariables = colnames(comp_df_full),
-rdata = comp_df_full)
-
-mlca_06_fit <- mplusModeler(mlca_06_m,
-dataout="mlpa/model06_nonparametricwithfactor.dat",
-modelout="mlpa/model06_nonparametricwithfactor.inp",
-check=TRUE, run = FALSE, hashfilename = FALSE)
-```
-
-
-
-
-
-
-
-
 
