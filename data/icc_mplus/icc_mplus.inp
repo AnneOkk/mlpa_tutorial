@@ -1,0 +1,17 @@
+TITLE:
+ICC
+DATA:
+FILE = "../data/icc_mplus/icc_mplus.dat";
+ 
+VARIABLE:
+NAMES = multiplier_multilevel id l_age l_confl el_confl l_stress el_stress p_supp
+     p_under p_direc p_emp stress age; 
+ MISSING=.;
+ usevar = p_supp p_under p_direc p_emp;
+    cluster = id;
+ANALYSIS:
+estimator = mlr;
+type = basic twolevel; ! ask for ICC curves
+processors = 10;
+OUTPUT:
+sampstat;

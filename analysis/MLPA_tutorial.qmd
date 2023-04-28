@@ -1,0 +1,252 @@
+---
+title: "MLPA tutorial"
+execute:
+  echo: true
+  warning: false
+  message: false
+  cache: false
+format:
+  html:
+    self-contained: true
+    toc: true
+    toc_float: true
+    toc-depth: 3
+---
+
+```{r}
+source("../R/custom-functions.R")
+```
+
+# Abstract
+
+This tutorial paper aims to guide researchers in conducting a Multilevel Latent Profile Analysis (MLLPA) using R, Quarto, and the MplusAutomation package. MLLPA is a valuable technique for examining the relationships between latent variables and multilevel data structures. The step-by-step tutorial will cover data preparation, software installation, model setup, and result interpretation. By the end of this tutorial, researchers will be equipped to perform MLLPA for their own research purposes.
+
+# Introduction 
+
+## Latent profile analysis (LPA) 
+
+## Multilevel latent profile analysis (MLLPA)
+
+## Software for MLLPA 
+
+# MLLPA tutorial using the MplusAutomation package
+
+## Example model 
+
+## Empirical example 1: Simulated dataset
+
+```{r}
+# Load necessary libraries
+library(dplyr)
+library(purrr)
+library(MASS)
+library(SimDesign)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Number of groups (leaders/ teams)
+n_groups <- 100
+
+# Generate group-level variables
+groups <- tibble(
+  id = 1:n_groups,
+  l_age = round(runif(n_groups, min = 25, max = 75)),
+  l_confl = round(runif(n_groups, min = 1, max = 5), 1),
+  el_confl = abs(rnorm(n_groups, mean = 0, sd = 1)),
+  l_stress = round(runif(n_groups, min = 1, max = 5), 1),
+  el_stress = abs(rnorm(n_groups, mean = 0, sd = 1))
+)
+
+# Function to generate unit-level variables for each group
+generate_units <- function(group_id, l_age) {
+  n_units <- sample(1:10, 1)
+  # Define correlation matrix
+  corr_matrix <- matrix(c(1,  -0.3, -0.1, 0.4,
+                         -0.3, 1, 0.05, -0.2,
+                          -0.1, 0.05, 1, -0.2,
+                          0.4, -0.2, -0.2, 1), nrow = 4, ncol = 4)
+  # Define mean vector
+  mean_vector <- c(3, 3, 3, 3)
+  # Generate correlated variables
+  correlated_vars <- rmvnorm(n_units, mean_vector, corr_matrix)
+  # Create tibble with correlated variables
+  unit_vars <- tibble(
+    p_supp = round(correlated_vars[, 1], 1),
+    p_under = round(correlated_vars[, 2], 1),
+    p_direc = round(correlated_vars[, 3], 1),
+    p_emp = round(correlated_vars[, 4], 1),
+    stress = round(runif(n_units, min = 1, max = 5), 1),
+    age = round(runif(n_units, min = 18, max = 72))
+  )
+  return(unit_vars)
+}
+
+# Generate unit-level variables and combine with group-level variables
+data <- groups %>%
+  group_by(id, l_age, l_confl, el_confl, l_stress, el_stress, add_multilevel) %>%
+  group_modify(~ generate_units(.x$id, .x$l_age)) 
+
+data %>% group_by(id) %>% mutate(mean_p_supp = p_supp + (p_supp - mean(p_supp)))
+
+
+    mutate(p_supp = mean(p_supp + add_multilevel) %>%
+    mutate(p_under = p_under + add_multilevel) %>%
+    mutate(p_direc = p_direc + add_multilevel) %>%
+    mutate(p_emp = p_emp + add_multilevel) %>%
+    mutate(stress = stress + add_multilevel) %>% dplyr::select(-add_multilevel)
+
+cor(data$p_direc, data$p_emp)
+```
+
+
+### Descriptive statistics
+
+```{r}
+library(stargazer)
+stargazer(as.data.frame(data), header = FALSE, digits=1)
+```
+
+
+```{r}
+# grouped by team
+library(gt)
+id_summary <- data %>%
+group_by(id) %>%
+summarize(
+    mean_p_supp = mean(p_supp, na.rm = TRUE),
+    mean_p_under = mean(p_under, na.rm = TRUE),
+    mean_p_direc = mean(p_direc, na.rm = TRUE),
+    mean_p_emp = mean(p_emp, na.rm = TRUE),
+    sample_n = n())
+
+id_summary[1:10,] %>%
+gt()
+
+```
+
+## Model 1: Latent profile enumeration (fixed effect model)
+
+```{r}
+library(MplusAutomation)
+library(glue)
+
+lpa_k1_10 <- lapply(1:10, function(k) {
+lpa_enum <- mplusObject(
+    TITLE = glue("C{k}_mlca_enum_demo"),
+    VARIABLE =
+        glue(
+        "usevar = p_supp p_under p_direc p_emp;
+        classes = c({k});"),
+    ANALYSIS =
+    "estimator = mlr;
+    type = mixture;
+    starts = 500 100;",
+    MODEL = "",
+    OUTPUT = "",
+    PLOT =
+    "type = plot3;
+    series = p_supp p_under p_direc p_emp(*);",
+    usevariables = colnames(data),
+    rdata = data)
+
+lpa_enum_fit <- mplusModeler(lpa_enum,
+                             dataout= glue("../data/enum_mplus/c_{k}_mlca_enum.dat"),
+                             modelout= glue("../data/enum_mplus/c_{k}_mlca_enum.inp"),
+                             check=TRUE, run = TRUE, hashfilename = FALSE)
+})
+```
+
+### Read models and plot latent profile analysis output 
+
+```{r}
+output_enum <- readModels("../data/enum_mplus/", quiet = TRUE)
+enum_summary <- LatexSummaryTable(output_enum,
+                                  keepCols=c("Title",
+                                             "LL",
+                                             "BIC",
+                                             "aBIC",
+                                             "Entropy"),
+                                  sortBy = "Title")
+
+enum_summary %>%
+gt()
+```
+
+
+### Plot the 5-profiles probability plot 
+
+```{r}
+library(reshape)
+library(cowplot)
+# extract posterior probabilities
+pp1 <- as.data.frame(output_enum$c_5_mlca_enum.out$gh5$means_and_variances_data$y_estimated_means$values)
+
+# extract model estimated class proportions
+c_size <- as.data.frame(output_enum$c_5_mlca_enum.out$class_counts$modelEstimated$proportion)
+colnames(c_size) <- paste0("cs")
+
+c_size <- c_size %>% mutate(cs = round(cs*100, 1))
+colnames(pp1) <- paste0("C", 1:5, glue(" ({c_size[1:5,]}%)"))
+
+pp1 <- cbind(Var = paste0("U", 1:4), pp1)
+# choose the order of indicators & label
+pp1$Var <- factor(pp1$Var,
+                  levels = c("U1","U2","U3","U4"),
+                  labels = c("Support", "Undermining", "Directive", "Empowering"))
+pd_long <- melt(pp1, id.vars = "Var")
+# plot data
+ggplot(pd_long, aes(as.integer(Var), value, shape = variable,
+                    colour = variable, lty = variable)) +
+    geom_point(size = 4) + geom_line() +
+    scale_x_continuous("", breaks = 1:4, labels = pp1$Var) +
+    scale_y_continuous("Probability") +
+    scale_colour_grey() +
+    theme_cowplot() +
+    theme(text=element_text(family="Times New Roman", size=12),
+          legend.key.width = unit(.5, "line"),
+          legend.text = element_text(family="Times New Roman", size=12),
+          legend.title = element_blank(),
+          legend.position = "top")
+```
+
+## Model 2: Compute intra-class correlations (type = basic; w/ analysis = TWOLEVEL;)
+
+```{r}
+# Note: In this example the ICC's are zero because items are dichotomous
+icc_mplus <- mplusObject(
+    TITLE = "ICC",
+    VARIABLE =
+    "usevar = p_supp p_under p_direc p_emp;
+    cluster = id;",
+ANALYSIS = 
+"estimator = mlr;
+type = basic twolevel; ! ask for ICC curves
+processors = 10;",
+MODEL = "",
+OUTPUT = "sampstat;",
+PLOT = "",
+usevariables = colnames(data),
+rdata = data)
+
+
+icc_fit <- mplusModeler(icc_mplus,
+                             dataout= glue("../data/icc_mplus/icc_mplus.dat"),
+                             modelout= glue("../data/icc_mplus/icc_mplus.inp"),
+                             check=TRUE, run = TRUE, hashfilename = FALSE)
+
+```
+### Read model 
+
+```{r}
+output_icc <- readModels("../data/icc_mplus/", quiet = TRUE)
+output_icc$
+
+
+```
+
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::

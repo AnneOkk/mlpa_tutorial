@@ -1,0 +1,403 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+04/27/2023   8:32 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  C2_mlca_enum_demo
+  DATA:
+  FILE = "../data/enum_mplus/c_2_mlca_enum.dat";
+
+  VARIABLE:
+  NAMES = add_multilevel id l_age l_confl el_confl l_stress el_stress p_supp p_under
+       p_direc p_emp stress age;
+   MISSING=.;
+   usevar = p_supp p_under p_direc p_emp;
+  classes = c(2);
+  ANALYSIS:
+  estimator = mlr;
+      type = mixture;
+      starts = 500 100;
+  PLOT:
+  type = plot3;
+      series = p_supp p_under p_direc p_emp(*);
+
+
+
+*** WARNING in MODEL command
+  All variables are uncorrelated with all other variables within class.
+  Check that this is what is intended.
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+C2_mlca_enum_demo
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         525
+
+Number of dependent variables                                    4
+Number of independent variables                                  0
+Number of continuous latent variables                            0
+Number of categorical latent variables                           1
+
+Observed dependent variables
+
+  Continuous
+   P_SUPP      P_UNDER     P_DIREC     P_EMP
+
+Categorical latent variables
+   C
+
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Optimization Specifications for the Quasi-Newton Algorithm for
+Continuous Outcomes
+  Maximum number of iterations                                 100
+  Convergence criterion                                  0.100D-05
+Optimization Specifications for the EM Algorithm
+  Maximum number of iterations                                 500
+  Convergence criteria
+    Loglikelihood change                                 0.100D-06
+    Relative loglikelihood change                        0.100D-06
+    Derivative                                           0.100D-05
+Optimization Specifications for the M step of the EM Algorithm for
+Categorical Latent variables
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-05
+  Basis for M step termination                           ITERATION
+Optimization Specifications for the M step of the EM Algorithm for
+Censored, Binary or Ordered Categorical (Ordinal), Unordered
+Categorical (Nominal) and Count Outcomes
+  Number of M step iterations                                    1
+  M step convergence criterion                           0.100D-05
+  Basis for M step termination                           ITERATION
+  Maximum value for logit thresholds                            15
+  Minimum value for logit thresholds                           -15
+  Minimum expected cell size for chi-square              0.100D-01
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+Random Starts Specifications
+  Number of initial stage random starts                        500
+  Number of final stage optimizations                          100
+  Number of initial stage iterations                            10
+  Initial stage convergence criterion                    0.100D+01
+  Random starts scale                                    0.500D+01
+  Random seed for generating random starts                       0
+
+Input data file(s)
+  ../data/enum_mplus/c_2_mlca_enum.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             1
+     Number of y missing data patterns           1
+     Number of u missing data patterns           0
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT FOR Y
+
+
+           Covariance Coverage
+              P_SUPP        P_UNDER       P_DIREC       P_EMP
+              ________      ________      ________      ________
+ P_SUPP         1.000
+ P_UNDER        1.000         1.000
+ P_DIREC        1.000         1.000         1.000
+ P_EMP          1.000         1.000         1.000         1.000
+
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     P_SUPP                2.913       0.132       0.140    0.19%       1.980      2.620      2.910
+             525.000       1.126      -0.138       6.650    0.19%       3.130      3.840
+     P_UNDER               3.044       0.080       0.300    0.19%       2.240      2.760      3.020
+             525.000       0.906      -0.042       5.850    0.19%       3.260      3.870
+     P_DIREC               2.981       0.125       0.230    0.19%       2.180      2.690      2.980
+             525.000       0.994       0.059       6.500    0.19%       3.210      3.740
+     P_EMP                 2.905       0.188       0.550    0.19%       1.930      2.600      2.900
+             525.000       1.032      -0.371       5.690    0.38%       3.140      3.810
+
+RANDOM STARTS RESULTS RANKED FROM THE BEST TO THE WORST LOGLIKELIHOOD VALUES
+
+Final stage loglikelihood values at local maxima, seeds, and initial stage start numbers:
+
+           -2919.643  392407           221
+           -2919.643  476498           179
+           -2919.643  966014           37
+           -2919.643  408713           450
+           -2919.643  107446           12
+           -2919.643  699554           427
+           -2919.643  863094           147
+           -2919.643  217130           443
+           -2919.643  66276            217
+           -2919.643  580405           286
+           -2919.643  985387           381
+           -2919.643  349360           464
+           -2919.643  55115            408
+           -2919.643  414284           158
+           -2919.643  673496           218
+           -2919.643  366533           484
+           -2919.643  466971           109
+           -2919.643  545140           278
+           -2919.643  127215           9
+           -2919.643  36714            201
+           -2919.643  579995           183
+           -2919.643  475420           71
+           -2919.643  723775           97
+           -2919.643  860772           174
+           -2919.643  798821           423
+           -2919.643  903369           134
+           -2919.643  263268           165
+           -2919.643  267983           228
+           -2919.643  642909           251
+           -2919.643  352277           42
+           -2919.643  913639           162
+           -2919.643  387701           275
+           -2919.643  945065           255
+           -2919.643  608460           244
+           -2919.643  923437           398
+           -2919.643  891531           206
+           -2919.643  59674            240
+           -2919.643  605565           404
+           -2919.643  821011           161
+           -2919.643  551639           55
+           -2919.643  193569           440
+           -2919.643  376411           473
+           -2919.643  315029           471
+           -2919.643  856536           144
+           -2919.643  851945           18
+           -2919.643  782821           272
+           -2919.643  462953           7
+           -2919.643  414828           322
+           -2919.643  354624           448
+           -2919.643  120506           45
+           -2919.643  783165           170
+           -2919.643  514326           325
+           -2919.643  595153           230
+           -2919.643  724519           333
+           -2919.643  404426           344
+           -2919.643  93468            3
+           -2919.643  485256           371
+           -2919.643  273992           349
+           -2919.643  153942           31
+           -2919.643  784664           75
+           -2919.643  76451            211
+           -2919.643  85462            51
+           -2919.643  960438           116
+           -2919.643  178475           231
+           -2919.643  573096           20
+           -2919.643  436460           89
+           -2919.643  195763           358
+           -2919.643  629320           222
+           -2919.643  405079           68
+           -2919.643  76337            76
+           -2919.643  602797           336
+           -2919.643  264081           186
+           -2919.643  404510           442
+           -2919.643  484687           306
+           -2919.643  963053           43
+           -2919.643  76974            16
+           -2919.643  195873           6
+           -2919.643  65651            214
+           -2919.643  717754           180
+           -2919.643  781190           219
+           -2919.643  568859           49
+           -2919.643  754100           56
+           -2919.643  unperturbed      0
+           -2919.643  533738           11
+           -2919.643  391949           295
+           -2919.643  399671           13
+           -2919.643  760878           249
+           -2919.643  900268           327
+           -2919.643  181293           212
+           -2919.643  939709           112
+           -2919.643  650371           14
+           -2919.643  645664           39
+           -2919.643  349562           359
+           -2919.643  464179           106
+           -2919.643  830392           35
+           -2919.643  278692           342
+           -2919.643  722748           346
+           -2919.643  354208           196
+           -2919.643  835767           210
+           -2919.643  840031           276
+
+
+
+THE BEST LOGLIKELIHOOD VALUE HAS BEEN REPLICATED.  RERUN WITH AT LEAST TWICE THE
+RANDOM STARTS TO CHECK THAT THE BEST LOGLIKELIHOOD IS STILL OBTAINED AND REPLICATED.
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       13
+
+Loglikelihood
+
+          H0 Value                       -2919.643
+          H0 Scaling Correction Factor      1.0451
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                    5865.286
+          Bayesian (BIC)                  5920.710
+          Sample-Size Adjusted BIC        5879.444
+            (n* = (n + 2) / 24)
+
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON THE ESTIMATED MODEL
+
+    Latent
+   Classes
+
+       1        321.52790          0.61243
+       2        203.47210          0.38757
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON ESTIMATED POSTERIOR PROBABILITIES
+
+    Latent
+   Classes
+
+       1        321.52790          0.61243
+       2        203.47210          0.38757
+
+
+FINAL CLASS COUNTS AND PROPORTIONS FOR THE LATENT CLASSES
+BASED ON THEIR MOST LIKELY LATENT CLASS MEMBERSHIP
+
+Class Counts and Proportions
+
+    Latent
+   Classes
+
+       1              332          0.63238
+       2              193          0.36762
+
+
+CLASSIFICATION QUALITY
+
+     Entropy                         0.572
+
+
+Classification Probabilities for the Most Likely Latent Class Membership (Column)
+by Latent Class (Row)
+
+           1        2
+
+    1   0.912    0.088
+    2   0.190    0.810
+
+
+Logits for the Classification Probabilities for the Most Likely Latent Class Membership (Column)
+by Latent Class (Row)
+
+              1        2
+
+    1      2.342    0.000
+    2     -1.450    0.000
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+Latent Class 1
+
+ Means
+    P_SUPP             2.404      0.073     32.844      0.000
+    P_UNDER            3.333      0.067     49.969      0.000
+    P_DIREC            3.169      0.065     48.728      0.000
+    P_EMP              2.467      0.080     30.982      0.000
+
+ Variances
+    P_SUPP             0.716      0.074      9.721      0.000
+    P_UNDER            0.774      0.053     14.587      0.000
+    P_DIREC            0.938      0.060     15.725      0.000
+    P_EMP              0.728      0.070     10.337      0.000
+
+Latent Class 2
+
+ Means
+    P_SUPP             3.718      0.123     30.198      0.000
+    P_UNDER            2.587      0.079     32.612      0.000
+    P_DIREC            2.683      0.082     32.913      0.000
+    P_EMP              3.598      0.107     33.577      0.000
+
+ Variances
+    P_SUPP             0.716      0.074      9.721      0.000
+    P_UNDER            0.774      0.053     14.587      0.000
+    P_DIREC            0.938      0.060     15.725      0.000
+    P_EMP              0.728      0.070     10.337      0.000
+
+Categorical Latent Variables
+
+ Means
+    C#1                0.458      0.210      2.181      0.029
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.260E-01
+       (ratio of smallest to largest eigenvalue)
+
+
+PLOT INFORMATION
+
+The following plots are available:
+
+  Histograms (sample values)
+  Scatterplots (sample values)
+  Sample means
+  Estimated means, medians, modes, and percentiles
+  Sample and estimated means
+  Observed individual values
+  Estimated means and observed individual values
+  Estimated overall and class-specific distributions
+
+     Beginning Time:  20:32:30
+        Ending Time:  20:32:33
+       Elapsed Time:  00:00:03
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen

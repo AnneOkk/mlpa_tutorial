@@ -1,0 +1,18 @@
+TITLE:
+C6_mlca_enum_demo
+DATA:
+FILE = "../data/enum_mplus/c_{k}_mlca_enum.dat";
+ 
+VARIABLE:
+NAMES = id l_age l_confl el_confl l_stress el_stress p_supp ep_supp p_direc ep_direc
+     p_emp ep_emp p_under ep_under commit; 
+ MISSING=.;
+ usevar = mean_p_supp mean_p_under mean_p_direc mean_p_emp;
+classes = c(6);
+ANALYSIS:
+estimator = mlr;
+    type = mixture;
+    starts = 500 100;
+PLOT:
+type = plot3;
+    series = mean_p_supp mean_p_under mean_p_direc mean_p_emp(*);

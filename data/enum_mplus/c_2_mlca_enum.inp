@@ -1,0 +1,18 @@
+TITLE:
+C2_mlca_enum_demo
+DATA:
+FILE = "../data/enum_mplus/c_2_mlca_enum.dat";
+ 
+VARIABLE:
+NAMES = add_multilevel id l_age l_confl el_confl l_stress el_stress p_supp p_under
+     p_direc p_emp stress age; 
+ MISSING=.;
+ usevar = p_supp p_under p_direc p_emp;
+classes = c(2);
+ANALYSIS:
+estimator = mlr;
+    type = mixture;
+    starts = 500 100;
+PLOT:
+type = plot3;
+    series = p_supp p_under p_direc p_emp(*);

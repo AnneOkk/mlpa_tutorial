@@ -31,4 +31,4 @@ output/
 .Rproj.user
 
 # Exclude data
-data/
+archive/

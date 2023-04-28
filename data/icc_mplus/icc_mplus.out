@@ -1,0 +1,204 @@
+Mplus VERSION 8.4 (Mac)
+MUTHEN & MUTHEN
+04/27/2023   6:57 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE:
+  ICC
+  DATA:
+  FILE = "../data/icc_mplus/icc_mplus.dat";
+
+  VARIABLE:
+  NAMES = multiplier_multilevel id l_age l_confl el_confl l_stress el_stress p_supp
+       p_under p_direc p_emp stress age;
+   MISSING=.;
+   usevar = p_supp p_under p_direc p_emp;
+      cluster = id;
+  ANALYSIS:
+  estimator = mlr;
+  type = basic twolevel; ! ask for ICC curves
+  processors = 10;
+  OUTPUT:
+  sampstat;
+
+
+
+*** WARNING
+  One or more individual-level variables have no variation within a
+  cluster for the following clusters.
+
+     Variable   Cluster IDs with no within-cluster variation
+
+      P_SUPP      27 59 3 63 72 2 23 84 55 92 96 100 52 81 15 43 70 93 94 35 73 12 19 61 13 11
+                  65 67 56 30 32 66 88 26 68 69 95 53 98 99 83 89 47 49 50 6 29 87 75 9 28 5 80
+                  20 41 42 58 74 1 24 97 36 86 64 91 44 18 14 48 8 78 7 22 90 45 82 25 38 39 40
+                  33 17 4 31
+      P_UNDER     27 59 3 63 72 2 23 84 55 92 96 100 52 81 15 43 70 93 94 35 73 12 19 61 13 11
+                  65 67 56 30 32 66 88 26 68 69 95 53 98 99 83 89 47 49 50 6 29 87 75 9 28 5 80
+                  20 41 42 58 74 1 24 97 36 86 64 91 44 18 14 48 8 78 7 22 90 45 82 25 38 39 40
+                  33 17 4 31
+      P_DIREC     27 59 3 63 72 2 23 84 55 92 96 100 52 81 15 43 70 93 94 35 73 12 19 61 13 11
+                  65 67 56 30 32 66 88 26 68 69 95 53 98 99 83 89 47 49 50 6 29 87 75 9 28 5 80
+                  20 41 42 58 74 1 24 97 36 86 64 91 44 18 14 48 8 78 7 22 90 45 82 25 38 39 40
+                  33 17 4 31
+      P_EMP       27 59 3 63 72 2 23 84 55 92 96 100 52 81 15 43 70 93 94 35 73 12 19 61 13 11
+                  65 67 56 30 32 66 88 26 68 69 95 53 98 99 83 89 47 49 50 6 29 87 75 9 28 5 80
+                  20 41 42 58 74 1 24 97 36 86 64 91 44 18 14 48 8 78 7 22 90 45 82 25 38 39 40
+                  33 17 4 31
+
+   1 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+
+ICC
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         525
+
+Number of dependent variables                                    4
+Number of independent variables                                  0
+Number of continuous latent variables                            0
+
+Observed dependent variables
+
+  Continuous
+   P_SUPP      P_UNDER     P_DIREC     P_EMP
+
+Variables with special functions
+
+  Cluster variable      ID
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                   100
+Convergence criterion                                    0.100D-05
+Maximum number of EM iterations                                500
+Convergence criteria for the EM algorithm
+  Loglikelihood change                                   0.100D-02
+  Relative loglikelihood change                          0.100D-05
+  Derivative                                             0.100D-03
+Minimum variance                                         0.100D-03
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+Optimization algorithm                                         EMA
+
+Input data file(s)
+  ../data/icc_mplus/icc_mplus.dat
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns             1
+     Number of clusters                        100
+
+       Size (s)    Cluster ID with Size s
+
+          1        16 34 37 51 54 57 60 62 76 79 85
+          2        27 59 3 10 63 72 2 23 84 55 92 96 100
+          3        52 81 15 43 70 93 94 46 35
+          4        73 12 19 61 13 11 65 67 56 71 30
+          5        32 66 88 26 68 69 95 53 98 99 83
+          6        89 47 49 50 6 29 21 87 75
+          7        9 28 77 5 80 20 41 42 58 74
+          8        1 24 97 36 86 64
+          9        91 44 18 14 48 8 78 7 22 90
+         10        45 82 25 38 39 40 33 17 4 31
+
+
+
+SUMMARY OF MISSING DATA PATTERNS
+
+
+     MISSING DATA PATTERNS (x = not missing)
+
+           1
+ P_SUPP    x
+ P_UNDER   x
+ P_DIREC   x
+ P_EMP     x
+
+
+     MISSING DATA PATTERN FREQUENCIES
+
+    Pattern   Frequency
+          1         525
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              P_SUPP        P_UNDER       P_DIREC       P_EMP
+              ________      ________      ________      ________
+ P_SUPP         1.000
+ P_UNDER        1.000         1.000
+ P_DIREC        1.000         1.000         1.000
+ P_EMP          1.000         1.000         1.000         1.000
+
+
+
+     A MATRIX COULD NOT BE INVERTED DURING THE H1 MODEL ESTIMATION.
+     THE ESTIMATED WITHIN COVARIANCE MATRIX IS NOT POSITIVE DEFINITE AS IT
+     SHOULD BE.  COMPUTATION COULD NOT BE COMPLETED.
+     THE VARIANCE OF P_SUPP APPROACHES 0.  FIX THIS VARIANCE AND THE
+     CORRESPONDING COVARIANCES TO 0, DECREASE THE MINIMUM VARIANCE, OR
+     SPECIFY THE VARIABLE AS A BETWEEN VARIABLE.
+
+     THE H1 MODEL ESTIMATION DID NOT CONVERGE.  THE SAMPLE STATISTICS COULD NOT
+     BE COMPUTED.
+
+
+
+
+RESULTS FOR BASIC ANALYSIS
+
+NOTE:  The sample statistics for within and between refer to the
+       maximum-likelihood estimated within and between covariance
+       matrices, respectively.
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     P_SUPP                0.001       5.199       0.000   95.62%       0.000      0.000      0.000
+             525.000       0.000      26.852       0.043    0.19%       0.000      0.000
+     P_UNDER               0.001       5.169       0.000   95.62%       0.000      0.000      0.000
+             525.000       0.000      26.516       0.050    0.19%       0.000      0.000
+     P_DIREC               0.001       5.042       0.000   95.62%       0.000      0.000      0.000
+             525.000       0.000      24.805       0.042    0.19%       0.000      0.000
+     P_EMP                 0.001       5.149       0.000   95.62%       0.000      0.000      0.000
+             525.000       0.000      26.072       0.047    0.19%       0.000      0.000
+
+
+     Beginning Time:  18:57:18
+        Ending Time:  18:57:18
+       Elapsed Time:  00:00:00
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen
